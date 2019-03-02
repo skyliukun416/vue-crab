@@ -23,93 +23,91 @@
             <div class="pack" v-for='pack of location.assets.pack'><img style="height:40px;width:40px;" src="../assets/pack.png"></div>
           </div>
           -->
-          <div style="display:flex">
+          <div style="">
+            <div id="cblock" v-if='location.assets.crab.length!=0'>
+               <div> 
+                    <div class="tit">
+                    <el-badge :value="location.assets.crab.length">
+                      <el-button size="small">Cacbs</el-button>
+                      </el-badge>
+                      
+                    </div>
+                   
+                  <div class="item">ID</div>
+                  <div class="item">Weight</div>
+                  <div class="item">Gender</div>
+                  <div class="item">Date</div>
+                  <div class="item">Code</div>
+                </div>
+              
+              <div v-for='crab in location.assets.crab'>
+                <div class="tit"><img style="width:30px;height:30px;" src='../assets/crab.png'></div>
+                <div class="item">{{crab.id}}</div>
+                <div class="item">{{crab.weight}}3.5</div>
+                <div class="item">{{crab.gender}}M</div>
+                <div class="item">{{crab.birth}}</div>
+                <div class="item">{{crab.code}}978792434</div>
 
+              </div>
+              
+            </div>
+            <div id="pblock" v-if='location.assets.pack.length!=0'>
+              <div class=''>
+               <div>
+                 
+                    <div class="tit">
+                    <el-badge :value="location.assets.pack.length">
+                      <el-button size="small">Packs</el-button>
+                      </el-badge>
+                      
+                    </div>
+                   
+                  <div class="item">ID</div>
+                  <div class="item">Tempreture</div>
+                  <div class="item">Humidity</div>
+                  <div class="item">Date</div>
+                  
+                </div>
+              </div>
+              <div v-for='pack in location.assets.pack'>
+                <div class="tit"><img style="width:30px;height:30px;" src='../assets/pack.png'></div>
+                <div class="item">{{pack.id}}12323123</div>
+                <div class="item">{{pack.tempreture}}</div>
+                <div class="item">{{pack.humidity}}</div>
+                <div class="item">{{pack.date}}2019.2.2</div>
+
+              </div>
+            </div>
+            <div id="oblock" v-if='location.assets.order.length!=0'>
+              <div class=''>
+               <div>
+                 
+                    <div class="tit">
+                    <el-badge :value="location.assets.order.length">
+                      <el-button size="small">Orders</el-button>
+                      </el-badge>
+                      
+                    </div>
+                   
+                  <div class="item">Order ID</div>
+                  <div class="item">Date</div>
+                  <div class="item">Location</div>
+                  <div class="item">Destination</div>
+                  
+                </div>
+              </div>
+              <div v-for='order in location.assets.order'>
+                <div class="tit"><img style="width:30px;height:30px;" src='../assets/pack2.png'></div>
+                <div class="item">{{order.id}}12323123</div>
+                <div class="item">{{order.date}}2019.2.2</div>
+                <div class="item">{{order.location}}Shanghai</div>
+                <div class="item">{{order.destination}}Singapore Distributor</div>
+
+              </div>
+            </div>
 
           
-          <div id="table-c" style="width: 50%">
-              <el-table :data="location.assets.crab" style="">
-                <el-table-column
-                  
-                  width="60">
-                  <template slot-scope="scope">            
-                    <img src="../assets/crab.png"  min-width="30" height="30" />
-                 </template> 
-                </el-table-column>
-           
-                <el-table-column
-                  prop="id"
-                  label="ID"
-                  width="100">
-                </el-table-column>
-                <el-table-column
-                  prop="birth"
-                  label="Date"
-                  width="100">
-                </el-table-column>
-                <el-table-column
-                  prop="weight"
-                  label="Weight"
-                  width="100">
-                </el-table-column>
-                <!--
-                <el-table-column label="Operation" width="100">
-                  
-                  
-                    <template slot-scope="scope">
-                    <el-button
-                      size="mini"
-                      >Pack</el-button>
-                  </template>
-                 
-                </el-table-column>
-                <template slot="empty">
-                  <span class="el-table__empty-text">No Dta</span>
-                </template>
-                 -->
-            </el-table>
-          </div>
-          <div id="table-p" style="width: 50%">
-              <el-table :data="location.assets.pack" >
-            
-                <el-table-column
-                  
-                  width="60">
-                  <template   slot-scope="scope">            
-                    <img src="../assets/pack.png"  min-width="30" height="30" />
-                 </template> 
-                </el-table-column>
-                <el-table-column
-                  prop="assetName"
-                  label="ID"
-                  width="100">
-                </el-table-column>
-                <el-table-column
-                  prop="tempreture"
-                  label="Tempreture"
-                  width="100">
-                </el-table-column>
-                <el-table-column
-                  prop="humidity"
-                  label="Humidity"
-                  width="100">
-                </el-table-column>
-                <!--
-                <el-table-column label="Operation" width="100">
-                  
-                    <template slot-scope="scope">
-                    <el-button
-                      size="mini"
-                      >Transfer</el-button>
-                  </template>
-                   
-                </el-table-column>
-                <template slot="empty">
-                  <span class="el-table__empty-text">No Data</span>
-                </template>
-                -->
-            </el-table>
-          </div>
+          
           </div>
           
 
@@ -299,12 +297,30 @@ export default {
   padding-left:15px;
 }
 
-#table-c, #table-p{
-  //display:flex
+#cblock, #pblock, #oblock{
+  display:flex
 }
-.crab-row, .pack-row{
-  display:flex;
 
+.title{
+  display:flex;
+  flex-wrap: wrap;
+
+}
+
+.tit{
+  height:50px;
+  width:147px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-right:1px solid #ebeef5;
+
+}
+.item{
+  width:147px;
+  height:30px;
+  line-height:30px;
+  border-right:1px solid #ebeef5;
 }
 
 .crab {
