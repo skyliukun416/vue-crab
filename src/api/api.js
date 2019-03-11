@@ -41,7 +41,7 @@ API.catchCrab = async (param)=>{
             let res = await axios.post(url, param);
             if (res.status =='200') {
                 localStorage.setItem("refreshPage", true);
-                alert("catch success");
+                //alert("catch success");
                 return res;
             }
         }
@@ -55,7 +55,7 @@ API.packCrab = async (param)=>{
             let res = await axios.post(url, param);
             if (res.status =='200') {
                 localStorage.setItem("refreshPage", true);
-                alert(" pack success");
+                //alert(" pack success");
                 return res;
             }
         }
@@ -63,6 +63,19 @@ API.packCrab = async (param)=>{
 
 }
 
+API.orderCrab = async (param)=>{
+    let url  = prefix + '/aggregate/crab/asset2';
+    try {
+            let res = await axios.post(url, param);
+            if (res.status =='200') {
+                localStorage.setItem("refreshPage", true);
+                //alert(" pack success");
+                return res;
+            }
+        }
+    catch(err){console.log(err)} 
+
+}
 
 API.mergeCrab = async (param)=>{
     let url  = prefix + '/aggregate/location/transfer/SZCrabFarm/SHCrabAgency';
@@ -70,7 +83,7 @@ API.mergeCrab = async (param)=>{
             let res = await axios.get(url, param);
             if (res.status =='200') {
                 localStorage.setItem("refreshPage", true);
-                alert("merge success");
+                //alert("merge success");
                 return res;
             }
         }
@@ -84,7 +97,7 @@ API.custom = async (param)=>{
             let res = await axios.get(url, param);
             if (res.status =='200') {
                 localStorage.setItem("refreshPage", true);
-                alert("custom success");
+                //alert("custom success");
                 return res;
             }
         }
@@ -98,7 +111,7 @@ API.distributionCenter = async (param)=>{
             let res = await axios.get(url, param);
             if (res.status =='200') {
                 localStorage.setItem("refreshPage", true);
-                alert("distribution success");
+                //alert("distribution success");
                 return res;
             }
         }
@@ -112,7 +125,7 @@ API.retail = async (param)=>{
             let res = await axios.get(url, param);
             if (res.status =='200') {
                 localStorage.setItem("refreshPage", true);
-                alert("retail success");
+                //alert("retail success");
                 return res;
             }
         }
@@ -126,7 +139,7 @@ API.unpackCrab = async (param)=>{
             let res = await axios.post(url, param);
             if (res.status =='200') {
                 localStorage.setItem("refreshPage", true);
-                alert("unpack success");
+                //alert("unpack success");
                 return res;
             }
         }
@@ -140,7 +153,7 @@ API.purchase = async (param)=>{
             let res = await axios.get(url, param);
             if (res.status =='200') {
                 localStorage.setItem("refreshPage", true);
-                alert("purchase success");
+                //alert("purchase success");
                 return res;
             }
         }
@@ -150,6 +163,18 @@ API.purchase = async (param)=>{
 
 API.getAssetsDetail = async (param)=>{
     let url  = prefix + '/assets-swarm/asset/'+param;
+    try {
+            let res = await axios.get(url);
+            if (res.status =='200') {
+                return res;
+            }
+        }
+    catch(err){console.log(err)} 
+
+}
+
+API.getAllEvents = async (param)=>{
+    let url  = prefix + '/asset-blockchain/events/Assets/0/allEvents';
     try {
             let res = await axios.get(url);
             if (res.status =='200') {

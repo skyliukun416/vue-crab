@@ -83,4 +83,20 @@ li {
 a {
   color: #42b983;
 }
+
+.animation{
+  height: 600px;
+    
+    width: 1100px;
+    background: cadetblue;
+   
+   
+    left: 0;
+    top: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    margin:  auto;
+}
 </style>
