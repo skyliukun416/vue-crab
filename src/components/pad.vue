@@ -28,6 +28,7 @@ export default {
   created(){
     window.$pad = this;
     var socket = io.connect('http://localhost:3009');
+    //var socket = io.connect('http://10.172.13.245:3009');
     socket.on('connect',  ()=>{
       console.log('client connect server');
       this.$socket.emit('client-padpage', "connection from pad page......"); 

@@ -5,12 +5,9 @@ window.onresize = function () {
 function fnResize() {
   var deviceWidth = document.documentElement.clientWidth || window.innerWidth;
 
-  if (deviceWidth >= 1024) {
-    //document.documentElement.style.fontSize = (deviceWidth / 7.5) + 'px';
-    
-  }
+  
 
-  else if (deviceWidth >= 750) {
+   if (deviceWidth >= 750) {
     deviceWidth = 750;
     document.documentElement.style.fontSize = (deviceWidth / 7.5) + 'px';
   }

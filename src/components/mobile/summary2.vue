@@ -9,7 +9,9 @@
     <div class="location">
       <div class="location1">
         <div class="kv"><img style="width:3.2rem;height:2rem;" :src='src'></div>
-        
+        <div class="tit">{{title}}<p style="font-size: .4rem;
+    text-align: center;">{{location}}</p></div>
+       
       </div>
       <div class="d1">
         <p>1.Taging Date: 20th Jan. 2018</p>
@@ -17,10 +19,13 @@
         <p>3.Dispatch Date: 21th Sep. 2018</p>
         </div>
         <div class="d2">
-        <p>1.Crab ID:  C2031 </p>
-        <p>2.Weight:   200g </p>
-        <p>3.Gender:   M</p>
-  
+        <p>1.Crab ID:  122DF21D </p>
+        <p>2.Weight:   250g </p>
+        <p>3.Gender:   Male</p>
+        <p>4.Status:   Health</p>
+        <p>5.Location :   {{location}}</p>
+        <p>6.GPS:   31,464503,120,7705092</p>
+        <p>7.Updated:   12:30 25 Dec 2018</p>
   
         </div>
     
@@ -40,26 +45,38 @@ export default {
   data () {
     return {
       src:"",
-      location:""
+      location:"",
+      title:""
     }
   },
   
   mounted(){
     this.location = this.$route.params.location;
     if(this.location == 'farm'){
-      this.src = require('../../assets/1.png');
+      this.src = require('../../assets/1.jpg');
+      this.title = "1st Station";
+      this.location = "Farm";
+
     }
     else if(this.location == 'agency'){
-      this.src = require('../../assets/2.png');
+      this.src = require('../../assets/2.jpg');
+      this.title = "2nd Station";
+      this.location = "Agency";
     }
     else if(this.location == 'custom'){
-      this.src = require('../../assets/3.png');
+      this.src = require('../../assets/3.jpg');
+      this.title = "3rd Station";
+      this.location = "Custom";
     }
     else if(this.location == 'distributor'){
-      this.src = require('../../assets/4.png');
+      this.src = require('../../assets/4.jpg');
+      this.title = "4th Station";
+      this.location = "Distributor";
     }
     else if(this.location == 'retailer'){
-      this.src = require('../../assets/5.png');
+      this.src = require('../../assets/5.jpg');
+      this.title = "5th Station";
+      this.location = "Retailer";
     }
 
   },
@@ -137,15 +154,22 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.12);
 .location1{
   display: flex;
       align-items: center;
-    flex-direction: column;
-    width:50%;
+  
 }
 
 
 .kv{
   margin-top:.7rem;
+  width:50%;
+  margin-left: .2rem;
 }
 
+.tit{
+  width: 50%;
+    font-size: .4rem;
+    font-weight: 600;
+
+}
 .kv img{
       width: 3.2rem;
     height: 2rem;

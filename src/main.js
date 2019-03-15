@@ -16,6 +16,7 @@ import socketio from 'socket.io-client';
 
 
 Vue.use(VueSocketio, socketio('http://localhost:3009')); 
+//Vue.use(VueSocketio, socketio('http://10.172.13.245:3009')); 
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 

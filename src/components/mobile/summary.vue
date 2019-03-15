@@ -6,7 +6,7 @@
       <div class="more"><img src='../../assets/dot.png'></div>
 
     </div>
-    <div class="kv"><img src='../../assets/0.png'></div>
+    <div class="kv"><img src='../../assets/0.jpg'></div>
     <div class="bt"><span><router-link to="/m/summary/locations">START</router-link></span></div>
   </div>
 </template>

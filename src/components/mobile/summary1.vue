@@ -8,28 +8,28 @@
     </div>
     <div class="location">
       <div class="location1">
-        <div class="kv"><img style="width:3.2rem;height:2rem;" src='../../assets/1.png'></div>
+        <div class="kv"><img style="width:3.2rem;height:2rem;" src='../../assets/1.jpg'></div>
         <div class="bt">
           <span><router-link :to="{ name: 'summary2', params: { location: 'farm'}}">1. Farm</router-link></span></div>
       </div>
     
     <div class="location2">
-       <div class="kv"><img src='../../assets/2.png'></div>
+       <div class="kv"><img src='../../assets/2.jpg'></div>
       <div class="bt">
         <span><router-link :to="{ name: 'summary2', params: { location: 'agency'}}">2. Agency</router-link></span>
         </div>
     </div>
     <div class="location3">
-       <div class="kv"><img src='../../assets/3.png'></div>
+       <div class="kv"><img src='../../assets/3.jpg'></div>
       <div class="bt">
         <span><router-link :to="{ name: 'summary2', params: { location: 'custom'}}">3. Custom</router-link></span></div>
     </div>
     <div class="location4">
-       <div class="kv"><img src='../../assets/4.png'></div>
+       <div class="kv"><img src='../../assets/4.jpg'></div>
       <div class="bt"><span><router-link :to="{ name: 'summary2', params: { location: 'distributor'}}">4. Distributor</router-link></span></div>
     </div>
     <div class="location5"> 
-       <div class="kv"><img src='../../assets/5.png'></div>
+       <div class="kv"><img src='../../assets/5.jpg'></div>
       <div class="bt"><span><router-link :to="{ name: 'summary2', params: { location: 'retailer'}}">5. Retailer</router-link></span></div>
     </div>
     
@@ -134,11 +134,11 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24), 0px 0px 4px rgba(0, 0, 0, 0.12);
 .location2, .location4{
   margin-left:50%;
   margin-left: 50%;
-    margin-top: -20%;
+    margin-top: -1.6rem;
 }
 
 .location3, .location5{
-margin-top: -20%;
+margin-top: -1.6rem;
 }
 .kv{
   margin-top:.7rem;
