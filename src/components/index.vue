@@ -2,9 +2,7 @@
     <div>
     <router-link to="/pad">PAD</router-link>
     <router-link to="/location">LOCATION</router-link>
-    <div id="div">
-    <span id="span">w</span>
-</div>
+   
     <router-view></router-view> 
     </div>
 </template>

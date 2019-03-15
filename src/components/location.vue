@@ -2,7 +2,7 @@
   <div id="main" v-cloak>
     <div class="title">EY Blockchain Crab Traceability Demo</div>
     <div id="content">
-      <div id="events"><events></events></div>
+      <div id="events"><events ref='ev'></events></div>
 
       <div id="collapse">
        <el-collapse v-model="activeNames" @change="handleChange">
@@ -17,20 +17,22 @@
           -->
           <div style="">
             <div id="cblock" v-if='location.assets.crab.length!=0'>
-               <div> 
-                    <div class="tit">
+               <div class='br'> 
+                    
                     <el-badge :value="location.assets.crab.length">
-                      <el-button size="small">Cacbs</el-button>
+                      <el-button size="small">Crabs</el-button>
                       </el-badge>
                       
-                    </div>
                    
+                   <!--
                   <div class="item">ID</div>
                   <div class="item">Weight</div>
                   <div class="item">Gender</div>
                   <div class="item">Date</div>
                   <div class="item">Code</div>
+                  -->
                 </div>
+                
               
               <div v-for='crab in location.assets.crab'>
                 <div class="tit"><img style="width:30px;height:30px;" src='../assets/crab.png'></div>
@@ -38,28 +40,28 @@
                 <div class="item">{{crab.weight}}</div>
                 <div class="item">{{crab.gender}}</div>
                 <div class="item">{{crab.birth}}</div>
-                <div class="item">{{crab.code}}</div>
+                <!--<div class="item">{{crab.code}}</div>-->
 
               </div>
               
             </div>
             <div id="pblock" v-if='location.assets.pack.length!=0'>
-              <div class=''>
-               <div>
+              <div class='br'>
+             
                  
-                    <div class="tit">
+                    
                     <el-badge :value="location.assets.pack.length">
                       <el-button size="small">Packs</el-button>
                       </el-badge>
                       
-                    </div>
                    
+                   <!--
                   <div class="item">ID</div>
                   <div class="item">Tempreture</div>
                   <div class="item">Humidity</div>
                   <div class="item">Date</div>
-                  
-                </div>
+                  -->
+               
               </div>
               <div v-for='pack in location.assets.pack'>
                 <div class="tit"><img style="width:30px;height:30px;" src='../assets/pack.png'></div>
@@ -71,27 +73,27 @@
               </div>
             </div>
             <div id="oblock" v-if='location.assets.order.length!=0'>
-              <div class=''>
-               <div>
+              <div class='br'>
+              
                  
-                    <div class="tit">
+                    
                     <el-badge :value="location.assets.order.length">
                       <el-button size="small">Orders</el-button>
                       </el-badge>
                       
-                    </div>
-                   
+                    
+                   <!--
                   <div class="item">Order ID</div>
                   <div class="item">Date</div>
                   <div class="item">Carrier</div>
                   <div class="item">Tracking Number</div>
-                  
-                </div>
+                  -->
+                
               </div>
               <div v-for='order in location.assets.order'>
-                <div class="tit"><img style="width:30px;height:30px;" src='../assets/pack2.png'></div>
+                <div class="tit"><img style="width:30px;height:30px;" src='../assets/order.png'></div>
                 <div class="item">{{order.orderID}}</div>
-                <div class="item">{{order.date}}</div>
+                <div class="item">{{order.date}}2019.3.3</div>
                 <div class="item">{{order.carrier}}</div>
                 <div class="item">{{order.tracking_number}}</div>
 
@@ -133,8 +135,8 @@ export default {
       dc:{
         fuceng_bg:"none",
         fuceng_class:""
-      }
-     // refreshLocation:false,
+      },
+      refreshEvent:true,
       
     }
   },
@@ -203,6 +205,7 @@ export default {
     
      
      this.getLocations();
+     this.$refs.ev.getAllEvents();
    }
 }, 
 
@@ -213,7 +216,7 @@ export default {
       }
     ,
 
-
+    /*
      refreshLocation: function(){
       window.addEventListener('storage', (e) => {
         if(e.key == 'refreshPage'){
@@ -222,6 +225,7 @@ export default {
         }
       })
     },
+    */
 
     getLocations(){
       this.$api.getLocations().then(res=>{
@@ -310,10 +314,6 @@ export default {
           }
         })
       }).then(()=>{
-        //console.log(this.locations);
-         //this.$store.commit('changeLocationsMutation', this.locations);
-        
-
       })
     },
 
@@ -377,7 +377,7 @@ components:{events}
   justify-content: space-around;
 }
 #collapse{
-  width:1200px;
+  width:900px;
   float:right;
   
 }
@@ -389,7 +389,8 @@ components:{events}
 }
 
 #cblock, #pblock, #oblock{
-  display:flex
+  display:flex;
+  margin-bottom:5px;
 }
 
 .title{
@@ -398,6 +399,11 @@ components:{events}
 
 }
 
+.br{
+  border-right:1px solid #ebeef5;
+  min-width:100px;
+  display:flex;
+}
 .tit{
   height:50px;
   width:147px;
@@ -457,7 +463,7 @@ components:{events}
 
 .animation{
 
-  background-image: url('../assets/routine.jpg');
+  background-image: url('../assets/routine2.jpg');
   height: 600px;   
   width: 1100px;
   left: 0;
@@ -592,5 +598,7 @@ components:{events}
             }
         }
 
-
+.el-badge{
+  margin-top:11px;
+}
 </style>

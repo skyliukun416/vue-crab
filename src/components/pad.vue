@@ -1,10 +1,10 @@
 <template>
-<div>
+<div style="margin-top:200px;">
     <el-row>
     <el-button type="primary" @click="catchCrab()">catch</el-button>
     <el-button type="primary" @click="packCrab()">pack</el-button>
     <el-button type="primary" @click="orderCrab()">order</el-button>
-    <el-button type="primary" @click="mergeCrab()">merge</el-button>
+    <el-button type="primary" @click="mergeCrab()">agent</el-button>
     <el-button type="primary" @click="custom()">custom</el-button>
     <el-button type="primary" @click="distributionCenter()">distributionCenter</el-button>
     <el-button type="primary" @click="retail()">retail</el-button>

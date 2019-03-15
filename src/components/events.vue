@@ -1,15 +1,11 @@
 <template>
   <div id="events">
     <el-card shadow="always" v-for='e in eventsList' style="margin-bottom:15px;">
-      <div class="tit">Block Number:<span> {{e.blockNumber}}</span></div>
-      <div class="tit">Contract:<span> {{e.address}}</span></div>
-      <div class="tit">TransactionHash:<span> {{e.transactionHash}}</span></div>
-      <div class="tit">TokenHolder:<span> {{e.args.currentTokenHolder}}</span></div>
+      <div class="tit"><span>Block Number:</span><span> {{e.blockNumber}}</span></div>
+      <div class="tit"><span>Contract:</span><span> {{e.address}}</span></div>
+      <div class="tit"><span>TransactionHash:</span><span> {{e.transactionHash}}</span></div>
+      <div class="tit"><span>TokenHolder:</span><span> {{e.args.currentTokenHolder}}</span></div>
     </el-card>
-  <el-pagination
-    layout="prev, pager, next"
-    :total="50">
-  </el-pagination>
   </div>
 </template>
 
@@ -22,7 +18,7 @@ export default {
       eventsList:[],
     }
   },
-
+  
   created(){
     this.getAllEvents();
   },
@@ -31,7 +27,7 @@ export default {
     
     getAllEvents(){
       this.$api.getAllEvents().then(res=>{
-        this.eventsList = res.data;
+        this.eventsList = res.data.reverse().slice(0,5);
       });
     }
   
@@ -59,5 +55,15 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+span:first-child{
+  font-weight: 600;
+}
+
+
+
+.el-collapse-item__header{
+  font-size:16px;
 }
 </style>
