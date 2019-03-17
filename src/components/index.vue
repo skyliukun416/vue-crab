@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div style="margin-top:20%;font-size:32px;">
     <router-link to="/pad">PAD</router-link>
     <router-link to="/location">LOCATION</router-link>
+    <router-link to="/m/summary">SUMMARY</router-link>
    
     <router-view></router-view> 
     </div>

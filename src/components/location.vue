@@ -1,8 +1,9 @@
 <template>
   <div id="main" v-cloak>
     <div class="title">EY Blockchain Crab Traceability Demo</div>
+    <div class="subtitle">安永大闸蟹区块链之旅</div>
     <div id="content">
-      <div id="events"><events ref='ev'></events></div>
+      
 
       <div id="collapse">
        <el-collapse v-model="activeNames" @change="handleChange">
@@ -111,7 +112,7 @@
       </el-collapse>
 
     </div>
-   
+   <div id="events"><events ref='ev'></events></div>
     </div>
   <div class="fuceng_bg" v-bind:style="{display:dc.fuceng_bg}">
 
@@ -165,7 +166,7 @@ export default {
        setTimeout(()=>{ 
          this.dc.fuceng_bg = "none"; 
          }, 10000);
-       this.activeNames = [1,2];
+       this.activeNames = [2];
      }
      else if(data.action=="4"){
        this.dc.fuceng_bg = "block";
@@ -173,7 +174,7 @@ export default {
        setTimeout(()=>{ 
          this.dc.fuceng_bg = "none"; 
          }, 10000);
-       this.activeNames = [2,3];
+       this.activeNames = [3];
      }
      else if(data.action=="5"){
        this.dc.fuceng_bg = "block";
@@ -181,7 +182,7 @@ export default {
        setTimeout(()=>{ 
          this.dc.fuceng_bg = "none"; 
          }, 10000);
-       this.activeNames = [3,4];
+       this.activeNames = [4];
      }
      else if(data.action=="6"){
        this.dc.fuceng_bg = "block";
@@ -189,10 +190,10 @@ export default {
        setTimeout(()=>{ 
          this.dc.fuceng_bg = "none"; 
          }, 10000);
-       this.activeNames = [4,5];
+       this.activeNames = [5];
      }
      else if(data.action=="7"){
-       this.activeNames = [4,5];
+       this.activeNames = [5];
      }
      else if(data.action=="8"){
        this.dc.fuceng_bg = "block";
@@ -200,7 +201,7 @@ export default {
        setTimeout(()=>{ 
          this.dc.fuceng_bg = "none"; 
          }, 10000);
-       this.activeNames = [5,6];
+       this.activeNames = [6];
      }
     
      
@@ -285,32 +286,32 @@ export default {
           if(loc.name == "SZCrabFarm"){
             //this.locations[0] = loc;
             this.$set(this.locations, 0, loc); 
-            this.locations[0].name = "Yangcheng Lake Crab Farm"
+            this.locations[0].name = "Yangcheng Lake Crab Farm (阳澄湖农场)"
           }
           else if(loc.name == "SHCrabAgency"){
             //this.locations[1] = loc;
             this.$set(this.locations, 1, loc);
-            this.locations[1].name = "Shanghai Crab Agency"
+            this.locations[1].name = "Shanghai Crab Agency (上海大闸蟹代理)"
           }
           else if(loc.name == "SHCustom"){
             //this.locations[2] = loc;
             this.$set(this.locations, 2, loc);
-            this.locations[2].name = "Shanghai Custom"
+            this.locations[2].name = "Shanghai Custom (上海海关)"
           }
           else if(loc.name == "SGDistributionCentre"){
             //this.locations[3] = loc;
             this.$set(this.locations, 3, loc);
-            this.locations[3].name = "Singapore Distribution Centre"
+            this.locations[3].name = "Singapore Distribution Centre (新加坡分销中心)"
           }
           else if(loc.name == "SGRetailer"){
             //this.locations[4] = loc;
             this.$set(this.locations, 4, loc);
-            this.locations[4].name = "Singapore Retailer"
+            this.locations[4].name = "Singapore Retailer (新加坡超市)"
           }
           else if(loc.name == "SGCustomer"){
             //this.locations[5] = loc;
             this.$set(this.locations, 5, loc);
-            this.locations[5].name = "Singapore Customer"
+            this.locations[5].name = "Singapore Customer (新加坡客户)"
           }
         })
       }).then(()=>{
@@ -350,14 +351,18 @@ components:{events}
 <style scoped>
 
 .title{
-    font-size: 24px;
+    font-size: 36px;
     font-weight: 600;
-    padding-bottom: 40px;
     display: flex;
     width: 100%;
+    margin-top: 25px;
     justify-content: center;
 }
 
+.subtitle{
+  padding-bottom: 40px;
+  font-size: 24px;
+}
 #main{
     display: flex;
     width: 100%;
@@ -401,13 +406,15 @@ components:{events}
 
 .br{
   border-right:1px solid #ebeef5;
-  min-width:100px;
+  min-width:120px;
   display:flex;
+      justify-content: center;
 }
 .tit{
   height:50px;
   width:147px;
   display:flex;
+  font-weight: 600;
   align-items:center;
   justify-content:center;
   border-right:1px solid #ebeef5;
@@ -416,6 +423,7 @@ components:{events}
 .item{
   width:147px;
   height:30px;
+  font-weight: 600;
   line-height:30px;
   border-right:1px solid #ebeef5;
 }
@@ -533,13 +541,13 @@ components:{events}
                 transform: translate(35px,60px);
             }
             50%{
-                transform: translate(45px,60px);
+                transform: translate(45px,100px);
             }
             75%{
-                transform: translate(65px,130px);
+                transform: translate(60px,120px);
             }
             100%{
-                transform: translate(65px,130px);
+                transform: translate(55px,140px);
             }
         }
 
@@ -585,13 +593,13 @@ components:{events}
             }
            
            25%{
-                transform: translate(40px,30px);
+                transform: translate(40px,40px);
             }
             55%{
-                transform: translate(55px,60px);
+                transform: translate(55px,80px);
             }
             75%{
-                transform: translate(75px,90px);
+                transform: translate(75px,110px);
             }
             100%{
                 transform: translate(80px,150px);
@@ -600,5 +608,16 @@ components:{events}
 
 .el-badge{
   margin-top:11px;
+}
+</style>
+<style>
+.el-collapse-item__header{
+  font-size:16px;
+
+}
+ .el-button--small{
+
+   font-size:14px;
+   font-weight: 600;
 }
 </style>

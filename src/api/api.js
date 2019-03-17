@@ -2,8 +2,10 @@ import axios from 'axios';
 
 //let prefix = 'http://10.172.13.245:3002';
 let prefix = 'http://localhost:3002';
-
+let SERVER = 'http://localhost:3009';
 let API = {}
+
+API.SERVER = SERVER;
 
 API.login = async (param)=>{
     let url  = prefix + '/accounts/login';

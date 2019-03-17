@@ -41,7 +41,7 @@ export default {
     width: 360px;
     
     margin-right: 20px;
-    font-size:12px;
+    font-size:14px;
     text-align: left;
     
 }
@@ -66,4 +66,12 @@ span:first-child{
 .el-collapse-item__header{
   font-size:16px;
 }
+</style>
+
+<style>
+
+.el-card__body {
+    padding: 10px;
+}
+
 </style>

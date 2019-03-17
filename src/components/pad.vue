@@ -17,6 +17,7 @@
 <script>
 import '@/assets/js/socket.io';
 import io from 'socket.io-client';
+import '@/api/api.js';
 export default {
   name: 'pad',
   data () {
@@ -49,15 +50,17 @@ export default {
       let param = {
         workerAddress:0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
       }
-      await this.$api.catchCrab(param);
-      
-      this.$notify({
-          title: '成功',
-          message: 'Catch success.',
-          type: 'success'
-        });
+      let res = await this.$api.catchCrab(param)
+      if (res.data.status.statusCode == '200'){
+        this.$notify({
+                  title: '成功',
+                  message: 'Catch success.',
+                  type: 'success'
+                });
 
-      await this.$socket.emit('pad-stage', {stage: "catch"});
+        await this.$socket.emit('pad-stage', {stage: "catch"});
+      }
+      
       // this.$store.commit('refreshMutation', true);
     },
 
@@ -65,30 +68,32 @@ export default {
       let param = {
         workerAddress:0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
       }
-      await this.$api.packCrab(param);
-      
-      this.$notify({
-          title: '成功',
-          message: 'Pack success.',
-          type: 'success'
-        });
+      let res = await this.$api.packCrab(param);
+      if (res.data.status.statusCode == '200'){
+        this.$notify({
+            title: '成功',
+            message: 'Pack success.',
+            type: 'success'
+          });
 
-      await this.$socket.emit('pad-stage', {stage: "pack"});
+        await this.$socket.emit('pad-stage', {stage: "pack"});
+      }
     },
 
     async orderCrab(){
       let param = {
         workerAddress:0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
       }
-      await this.$api.orderCrab(param);
-      
-      this.$notify({
-          title: '成功',
-          message: 'Order success.',
-          type: 'success'
-        });
+      let res = await this.$api.orderCrab(param);
+      if (res.data.status.statusCode == '200'){
+        this.$notify({
+            title: '成功',
+            message: 'Order success.',
+            type: 'success'
+          });
 
-      await this.$socket.emit('pad-stage', {stage: "pack"});
+        await this.$socket.emit('pad-stage', {stage: "pack"});
+      }
     },
 
     
@@ -97,90 +102,96 @@ export default {
       let param = {
        
       }
-      await this.$api.mergeCrab(param);
-      
-      this.$notify({
-          title: '成功',
-          message: 'Merge success.',
-          type: 'success'
-        });
+      let res= await this.$api.mergeCrab(param);
+      if (res.data.status.statusCode == '200'){
+        this.$notify({
+            title: '成功',
+            message: 'Merge success.',
+            type: 'success'
+          });
 
-      await this.$socket.emit('pad-stage', {stage: "merge"});
+        await this.$socket.emit('pad-stage', {stage: "merge"});
+      }
     },
 
     async custom(){
       let param = {
        
       }
-      await this.$api.custom(param);
-      
-      this.$notify({
-          title: '成功',
-          message: 'Custom success.',
-          type: 'success'
-        });
+      let res = await this.$api.custom(param);
+      if (res.data.status.statusCode == '200'){
+        this.$notify({
+            title: '成功',
+            message: 'Custom success.',
+            type: 'success'
+          });
 
-      await this.$socket.emit('pad-stage', {stage: "custom"});
+        await this.$socket.emit('pad-stage', {stage: "custom"});
+      }
     },
 
     async distributionCenter(){
       let param = {
        
       }
-      await this.$api.distributionCenter();
-      
-      this.$notify({
-          title: '成功',
-          message: 'Distribution success.',
-          type: 'success'
-        });
+      let res = await this.$api.distributionCenter();
+      if (res.data.status.statusCode == '200'){
+        this.$notify({
+            title: '成功',
+            message: 'Distribution success.',
+            type: 'success'
+          });
 
-      await this.$socket.emit('pad-stage', {stage: "distribution"});
+        await this.$socket.emit('pad-stage', {stage: "distribution"});
+      }
     },
 
     async retail(){
       let param = {
        
       }
-      await this.$api.retail();
-      
-      this.$notify({
-          title: '成功',
-          message: 'Retail success.',
-          type: 'success'
-        });
+      let res = await this.$api.retail();
+      if (res.data.status.statusCode == '200'){
+        this.$notify({
+            title: '成功',
+            message: 'Retail success.',
+            type: 'success'
+          });
 
-      await this.$socket.emit('pad-stage', {stage: "retail"});
+        await this.$socket.emit('pad-stage', {stage: "retail"});
+      }
     },
 
     async unpack(){
       let param = {
         workerAddress:0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
       }
-      await this.$api.unpackCrab();
-      
-      this.$notify({
-          title: '成功',
-          message: 'Unpack success.',
-          type: 'success'
-        });
+      let res = await this.$api.unpackCrab();
+      if (res.data.status.statusCode == '200'){
+        this.$notify({
+            title: '成功',
+            message: 'Unpack success.',
+            type: 'success'
+          });
 
-      await this.$socket.emit('pad-stage', {stage: "unpack"});
+        await this.$socket.emit('pad-stage', {stage: "unpack"});
+      }
     },
 
     async purchase(){
       let param = {
        
       }
-      await this.$api.purchase();
-      
-      this.$notify({
-          title: '成功',
-          message: 'Purchase success.',
-          type: 'success'
-        });
+      let res =await this.$api.purchase();
+      if (res.data.status.statusCode == '200'){
+        this.$notify({
+            title: '成功',
+            message: 'Purchase success.',
+            type: 'success'
+          });
 
-      await this.$socket.emit('pad-stage', {stage: "purchase"});
+        await this.$socket.emit('pad-stage', {stage: "purchase"});
+      }
     },
   }
 }
