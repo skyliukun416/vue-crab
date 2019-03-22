@@ -13,10 +13,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 import VueSocketio from 'vue-socket.io';
 import socketio from 'socket.io-client';
 
+console.log("API"+API.SERVER);
 
-
-Vue.use(VueSocketio, socketio('http://localhost:3009')); 
-//Vue.use(VueSocketio, socketio('http://10.172.13.245:3009')); 
+//Vue.use(VueSocketio, socketio('http://localhost:3009')); 
+Vue.use(VueSocketio, socketio(API.server_prefix)); 
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 

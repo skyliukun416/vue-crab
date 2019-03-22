@@ -6,7 +6,23 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  mounted(){
+    
+  // LOGIN 
+      let param  = {
+            //email: account.accountName,
+            email: 'owner',
+            password: '',
+          };
+      this.$api.login(param).then(res=>{
+          localStorage.setItem('token', res.data.data.user.token);
+          localStorage.setItem('role', res.data.data.user.role);
+          localStorage.setItem('address',res.data.data.user.address);
+          localStorage.setItem('name',res.data.data.user.name);
+      })
+
+  }
 }
 </script>
 

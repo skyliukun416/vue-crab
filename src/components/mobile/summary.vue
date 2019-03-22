@@ -1,7 +1,7 @@
 <template>
   <div id="summary">
     <div class="nav">
-      <div class="back"><a @click='this.$route.go(-1)'><img src='../../assets/shape.png'></a></div>
+      <div class="back"><a href="/"><img src='../../assets/shape.png'></a></div>
       <div class="tit">Back to Scan</div>
       <div class="more"><img src='../../assets/dot.png'></div>
 

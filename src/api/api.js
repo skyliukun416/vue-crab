@@ -2,10 +2,12 @@ import axios from 'axios';
 
 //let prefix = 'http://10.172.13.245:3002';
 let prefix = 'http://localhost:3002';
-let SERVER = 'http://localhost:3009';
+//let SERVER_PREFIX = 'http://10.172.13.245:3009';
+let SERVER_PREFIX = 'http://localhost:3009';
 let API = {}
 
-API.SERVER = SERVER;
+API.server_prefix = SERVER_PREFIX;
+API.prd_prefix =  prefix;
 
 API.login = async (param)=>{
     let url  = prefix + '/accounts/login';

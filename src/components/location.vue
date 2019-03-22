@@ -318,7 +318,7 @@ export default {
       })
     },
 
-    login(account) {
+    login() {
 
       let param  = {
             //email: account.accountName,
@@ -362,6 +362,7 @@ components:{events}
 .subtitle{
   padding-bottom: 40px;
   font-size: 24px;
+  font-weight: 600;
 }
 #main{
     display: flex;
@@ -612,12 +613,12 @@ components:{events}
 </style>
 <style>
 .el-collapse-item__header{
-  font-size:16px;
+  font-size:16px !important;
 
 }
  .el-button--small{
 
-   font-size:14px;
-   font-weight: 600;
+   font-size:14px !important; 
+   font-weight: 600 !important;
 }
 </style>

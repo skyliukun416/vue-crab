@@ -17,7 +17,7 @@
 <script>
 import '@/assets/js/socket.io';
 import io from 'socket.io-client';
-import '@/api/api.js';
+import API from '@/api/api.js';
 export default {
   name: 'pad',
   data () {
@@ -28,8 +28,8 @@ export default {
 
   created(){
     window.$pad = this;
-    var socket = io.connect('http://localhost:3009');
-    //var socket = io.connect('http://10.172.13.245:3009');
+    //var socket = io.connect('http://localhost:3009');
+    var socket = io.connect(API.server_prefix);
     socket.on('connect',  ()=>{
       console.log('client connect server');
       this.$socket.emit('client-padpage', "connection from pad page......"); 
