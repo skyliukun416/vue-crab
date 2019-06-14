@@ -1,5 +1,5 @@
 <template>
-  <div id="summary">
+  <div>
     <div class="nav">
       <div class="back"><a @click='back()'><img src='../../assets/shape.png'></a></div>
       <div class="tit">Back to Start</div>

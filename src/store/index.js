@@ -6,23 +6,20 @@ import axios from "axios/index";
 Vue.use(Vuex);
 var store = new Vuex.Store({//store对象
   state: {
-    locations:[],
-    loginToken: "",
-    refreshLocation: false,
+    qmeOrders:[]
+  
   },
   mutations: {
-    changeLocationsMutation(state,newVal){
-      state.locations = newVal;
-    },
 
-    refreshMutation(state,newVal){
-      state.refreshLocation = newVal;
-    },
+
+   pushOrder(state, payload){
+    this.state.qmeOrders.push(payload)
+   }
    
   },
   getters: {
-    getLocations:state=> state.locations,
-    getRefreshLocation:state=> state.refreshLocation,
+    getQMEorders:state=> state.qmeOrders,
+    
     
   },
   actions: {

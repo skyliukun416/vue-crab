@@ -3,7 +3,8 @@ window.onresize = function () {
   fnResize();
 }
 function fnResize() {
-  var deviceWidth = document.documentElement.clientWidth || window.innerWidth;
+  if(window.location.href.search("/m/")!=-1){
+    var deviceWidth = document.documentElement.clientWidth || window.innerWidth;
 
   
 
@@ -20,5 +21,7 @@ function fnResize() {
   }
   
   console.log("device width:"+deviceWidth);
+  }
+  
   
 }

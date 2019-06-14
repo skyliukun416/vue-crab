@@ -36,7 +36,7 @@
                 
               
               <div v-for='crab in location.assets.crab'>
-                <div class="tit"><img style="width:30px;height:30px;" src='../assets/crab.png'></div>
+                <div class="tit"><img style="width:30px;height:30px;" src='../assets/crab2.png'></div>
                 <div class="item">{{crab.id}}</div>
                 <div class="item">{{crab.weight}}</div>
                 <div class="item">{{crab.gender}}</div>
@@ -65,10 +65,10 @@
                
               </div>
               <div v-for='pack in location.assets.pack'>
-                <div class="tit"><img style="width:30px;height:30px;" src='../assets/pack.png'></div>
+                <div class="tit"><img style="width:30px;height:30px;" src='../assets/pack2.png'></div>
                 <div class="item">{{pack.id}}</div>
-                <div class="item">{{pack.tempreture}}</div>
-                <div class="item">{{pack.humidity}}</div>
+                <div class="item">{{pack.tempreture}}°C</div>
+                <div class="item">{{pack.humidity}}RH</div>
                 <div class="item">{{pack.date}}</div>
 
               </div>
@@ -94,9 +94,10 @@
               <div v-for='order in location.assets.order'>
                 <div class="tit"><img style="width:30px;height:30px;" src='../assets/order.png'></div>
                 <div class="item">{{order.orderID}}</div>
-                <div class="item">{{order.date}}2019.3.3</div>
+                
                 <div class="item">{{order.carrier}}</div>
                 <div class="item">{{order.tracking_number}}</div>
+                <div class="item">{{order.date}}</div>
 
               </div>
             </div>
@@ -116,8 +117,10 @@
     </div>
   <div class="fuceng_bg" v-bind:style="{display:dc.fuceng_bg}">
 
-    <div class="animation"></div>
-    <img :class="dc.fuceng_class" src='../assets/crab.jpg'>
+    <div class="animation">
+      <img :class="dc.fuceng_class" class="ccrab" src='../assets/crab-gif.gif'>
+    </div>
+    
   </div>
   
   </div>
@@ -265,6 +268,7 @@ export default {
                     res.humidity = result[0].humidity;
                     res.empty = result[0].empty;
                     res.id = result[0].ID;
+                    res.date = result[0].date;
                     each.assets.pack.push(res);
                     //this.$set(each.assets.pack,0,res);
                   }
@@ -275,6 +279,7 @@ export default {
                     res.tracking_number = result[0].tracking_number;
                     res.carrier = result[0].carrier;
                     res.orderID = result[0].orderID;
+                    res.date = result[0].date;
                     each.assets.order.push(res);
                     //this.$set(each.assets.order,0,res);
                   }
@@ -413,7 +418,7 @@ components:{events}
 }
 .tit{
   height:50px;
-  width:147px;
+  width:155px;
   display:flex;
   font-weight: 600;
   align-items:center;
@@ -422,8 +427,8 @@ components:{events}
 
 }
 .item{
-  width:147px;
-  height:30px;
+  width:155px;
+  height:24px;
   font-weight: 600;
   line-height:30px;
   border-right:1px solid #ebeef5;
@@ -472,7 +477,7 @@ components:{events}
 
 .animation{
 
-  background-image: url('../assets/routine2.jpg');
+  background-image: url('../assets/location/location-path.png');
   height: 600px;   
   width: 1100px;
   left: 0;
@@ -487,32 +492,34 @@ components:{events}
 }
 
 
+.ccrab{
+  width:80px;
+  height:60px;
+}
 .crab1{
-    height: 115px;
-    width: 140px;
+    
     position: absolute;
-    top: 222px;
-    left: 180px;
+        top: 200px;
+    left: 85px;
     animation: move1 8s linear 0s;
     animation-fill-mode: forwards;
 }
 @keyframes move1 {
             0%{
-                transform: translate(10px,0px);
+                transform: translate(0px,0px);
             }
            
             100%{
-                transform: translate(20px,140px);
+                transform: translate(0px,140px);
             }
         }
 
 .crab2{
-    height: 115px;
-    width: 140px;
+    
     position: absolute;
-    top: 490px;
-    left: 525px;
-    animation: move2 8s ease 0s;
+        top: 439px;
+    left: 185px;
+    animation: move2 8s linear 0s;
     animation-fill-mode: forwards;
 }
 @keyframes move2 {
@@ -521,16 +528,15 @@ components:{events}
             }
            
             100%{
-                transform: translate(50px,-100px);
+                transform: translate(210px,-130px);
             }
         }
 
 .crab3{
-    height: 115px;
-    width: 140px;
+    
     position: absolute;
-    top: 285px;
-    left: 810px;
+    top: 197px;
+    left: 582px;
     animation: move3 8s linear 0s;
     animation-fill-mode: forwards;
 }
@@ -538,26 +544,17 @@ components:{events}
             0%{
                 transform: translate(0px,0px);
             }
-            25%{
-                transform: translate(35px,60px);
-            }
-            50%{
-                transform: translate(45px,100px);
-            }
-            75%{
-                transform: translate(60px,120px);
-            }
+           
             100%{
-                transform: translate(55px,140px);
+                    transform: translate(185px,-121px);
             }
         }
 
 .crab4{
-    height: 115px;
-    width: 140px;
+    
     position: absolute;
-    top: 517px;
-    left: 955px;
+        top: 156px;
+    left: 882px;
     animation: move4 8s linear 0s;
     animation-fill-mode: forwards;
 }
@@ -565,26 +562,17 @@ components:{events}
             0%{
                 transform: translate(0px,0px);
             }
-            25%{
-                transform: translate(25px,-60px);
-            }
-            50%{
-                transform: translate(45px,-160px);
-            }
-            75%{
-                transform: translate(45px,-230px);
-            }
+            
             100%{
-                transform: translate(25px,-300px);
+                transform: translate(0px,216px);
             }
         }
 
 .crab5{
-    height: 115px;
-    width: 140px;
+    
     position: absolute;
-    top: 105px;
-    left: 1080px;
+        top: 474px;
+    left: 796px;
     animation: move5 5s linear 0s;
     animation-fill-mode: forwards;
 }
@@ -593,17 +581,9 @@ components:{events}
                 transform: translate(0px,0px);
             }
            
-           25%{
-                transform: translate(40px,40px);
-            }
-            55%{
-                transform: translate(55px,80px);
-            }
-            75%{
-                transform: translate(75px,110px);
-            }
+           
             100%{
-                transform: translate(80px,150px);
+                transform: translate(-241px,0px);
             }
         }
 
@@ -614,6 +594,7 @@ components:{events}
 <style>
 .el-collapse-item__header{
   font-size:16px !important;
+  padding-left:10px;
 
 }
  .el-button--small{

@@ -16,7 +16,7 @@ import socketio from 'socket.io-client';
 console.log("API"+API.SERVER);
 
 //Vue.use(VueSocketio, socketio('http://localhost:3009')); 
-Vue.use(VueSocketio, socketio(API.server_prefix)); 
+Vue.use(VueSocketio, socketio(process.env.WS_PREFIX)); 
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 

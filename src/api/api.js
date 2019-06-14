@@ -1,9 +1,14 @@
 import axios from 'axios';
 
 //let prefix = 'http://10.172.13.245:3002';
-let prefix = 'http://localhost:3002';
 //let SERVER_PREFIX = 'http://10.172.13.245:3009';
-let SERVER_PREFIX = 'http://localhost:3009';
+//let prefix = 'http://localhost:3002';
+//let prefix = '/crabapi';
+
+//let SERVER_PREFIX = 'http://localhost:3009';
+//let SERVER_PREFIX = '/crabapi';
+let prefix = process.env.prefix;
+let SERVER_PREFIX = process.env.SERVER_PREFIX;
 let API = {}
 
 API.server_prefix = SERVER_PREFIX;
@@ -29,8 +34,18 @@ API.getLocations = async ()=>{
 
 }
 
+API.getLocationsToken = async ()=>{
+    let url  = prefix + '/asset-blockchain/tokenHolderWithAddress';
+    try {
+            let res = await axios.get(url);
+            if (res.status =='200') return res;
+        }
+    catch(err){console.log(err)} 
+
+}
+
 API.getLocationDetails = async (each, param)=>{
-    let url  = prefix + '/aggregate/location/' + each;
+    let url  = prefix + '/crab-demo/location/' + each;
     try {
             let res = await axios.get(url, param);
             if (res.status =='200') return res;
@@ -38,9 +53,10 @@ API.getLocationDetails = async (each, param)=>{
     catch(err){console.log(err)} 
 
 }
+
     
 API.catchCrab = async (param)=>{
-    let url  = prefix + '/aggregate/crab/asset';
+    let url  = prefix + '/crab-demo/crab/asset';
     try {
             let res = await axios.post(url, param);
             if (res.status =='200') {
@@ -54,7 +70,7 @@ API.catchCrab = async (param)=>{
 }
 
 API.packCrab = async (param)=>{
-    let url  = prefix + '/aggregate/crab/asset1';
+    let url  = prefix + '/crab-demo/crab/asset1';
     try {
             let res = await axios.post(url, param);
             if (res.status =='200') {
@@ -68,7 +84,7 @@ API.packCrab = async (param)=>{
 }
 
 API.orderCrab = async (param)=>{
-    let url  = prefix + '/aggregate/crab/asset2';
+    let url  = prefix + '/crab-demo/crab/asset2';
     try {
             let res = await axios.post(url, param);
             if (res.status =='200') {
@@ -82,7 +98,7 @@ API.orderCrab = async (param)=>{
 }
 
 API.mergeCrab = async (param)=>{
-    let url  = prefix + '/aggregate/location/transfer/SZCrabFarm/SHCrabAgency';
+    let url  = prefix + '/crab-demo/location/transfer/SZCrabFarm/SHCrabAgency';
     try {
             let res = await axios.get(url, param);
             if (res.status =='200') {
@@ -96,7 +112,7 @@ API.mergeCrab = async (param)=>{
 }
 
 API.custom = async (param)=>{
-    let url  = prefix + '/aggregate/location/transfer/SHCrabAgency/SHCustom';
+    let url  = prefix + '/crab-demo/location/transfer/SHCrabAgency/SHCustom';
     try {
             let res = await axios.get(url, param);
             if (res.status =='200') {
@@ -110,7 +126,7 @@ API.custom = async (param)=>{
 }
 
 API.distributionCenter = async (param)=>{
-    let url  = prefix + '/aggregate/location/transfer/SHCustom/SGDistributionCentre';
+    let url  = prefix + '/crab-demo/location/transfer/SHCustom/SGDistributionCentre';
     try {
             let res = await axios.get(url, param);
             if (res.status =='200') {
@@ -124,7 +140,7 @@ API.distributionCenter = async (param)=>{
 }
 
 API.retail = async (param)=>{
-    let url  = prefix + '/aggregate/location/transfer/SGDistributionCentre/SGRetailer';
+    let url  = prefix + '/crab-demo/location/transfer/SGDistributionCentre/SGRetailer';
     try {
             let res = await axios.get(url, param);
             if (res.status =='200') {
@@ -138,7 +154,7 @@ API.retail = async (param)=>{
 }
 
 API.unpackCrab = async (param)=>{
-    let url  = prefix + '/aggregate/crab/asset3/SGRetailer';
+    let url  = prefix + '/crab-demo/crab/asset3/SGRetailer';
     try {
             let res = await axios.post(url, param);
             if (res.status =='200') {
@@ -152,7 +168,7 @@ API.unpackCrab = async (param)=>{
 }
 
 API.purchase = async (param)=>{
-    let url  = prefix + '/aggregate/crab/transfer/SGRetailer/SGCustomer';
+    let url  = prefix + '/crab-demo/crab/transfer/SGRetailer/SGCustomer';
     try {
             let res = await axios.get(url, param);
             if (res.status =='200') {
@@ -187,5 +203,62 @@ API.getAllEvents = async (param)=>{
         }
     catch(err){console.log(err)} 
 
+}
+
+API.trackAssets = async (param)=>{
+    let url  = prefix + '/asset-blockchain/getAssetHistory/' + param;
+    try {
+            let res = await axios.get(url);
+            if (res.status =='200') {
+                return res;
+            }
+        }
+    catch(err){console.log(err)} 
+
+}
+
+API.booth = {
+    catchcrab :async ()=>{
+        return axios.get("https://ops.chain.eco/s/l/1/1")
+    },
+    packcrab :async ()=>{
+        return axios.get("https://ops.chain.eco/s/t/1")
+    },
+    ordercrab :async ()=>{
+        return axios.get("https://ops.chain.eco/s/t/1")
+    },
+    toAgency :async ()=>{
+       
+        return axios.all([axios.get("https://ops.chain.eco/s/t/2"),axios.get("https://ops.chain.eco/s/l/2/1")]);
+    },
+    toCustom :async ()=>{
+        return axios.all([axios.get("https://ops.chain.eco/s/t/3"),axios.get("https://ops.chain.eco/s/l/3/1")]);
+    },
+    toDistributor :async ()=>{
+        return axios.all([axios.get("https://ops.chain.eco/s/t/4"),axios.get("https://ops.chain.eco/s/l/4/1")]);
+    },
+    toRetailer :async ()=>{
+        return axios.get("https://ops.chain.eco/s/l/5/1")
+    },
+    buy :async ()=>{
+        return axios.all([axios.get("https://ops.chain.eco/s/t/4"),axios.get("https://ops.chain.eco/s/l/4/1")]);
+    },
+    reset :async ()=>{
+        return axios.all([axios.get("https://ops.chain.eco/s/t/0"),axios.get("https://ops.chain.eco/s/l/1/0")]);
+    },
+    
+    
+}
+
+API.dashboard = {
+    weather :async ()=>{
+        return axios.get("/api-weather/weather_mini?city=苏州")
+    },
+    map :async ()=>{
+        return '31.42320047131183,120.81808 北纬N31°25′23.52″ 东经E120°49′5.09″'
+    },
+    
+    
+    
 }
 export default API

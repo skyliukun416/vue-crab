@@ -28,7 +28,8 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  /*font-family: "Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;*/
+      font-family: 'EYInterstate',sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -41,9 +42,19 @@ export default {
 
 
 body{
-    
-margin:0;
-padding:0;
+    background-color: #f5f5f5;    
+    margin:0;
+    padding:0;
 
+}
+ul{
+  margin: 0;
+}
+li{
+    list-style-type:none;
+}
+
+.fl{
+  float:left
 }
 </style>

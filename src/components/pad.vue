@@ -10,6 +10,7 @@
     <el-button type="primary" @click="retail()">retail</el-button>
     <el-button type="primary" @click="unpack()">unpack</el-button>
     <el-button type="primary" @click="purchase()">purchase</el-button>
+    <el-button type="primary" @click="startScript()">start script</el-button>
     </el-row>
   </div>
 </template>
@@ -18,6 +19,7 @@
 import '@/assets/js/socket.io';
 import io from 'socket.io-client';
 import API from '@/api/api.js';
+import { setInterval } from 'timers';
 export default {
   name: 'pad',
   data () {
@@ -29,7 +31,8 @@ export default {
   created(){
     window.$pad = this;
     //var socket = io.connect('http://localhost:3009');
-    var socket = io.connect(API.server_prefix);
+    var socket = io.connect(process.env.WS_PREFIX);
+    console.log("PAD socket connecting"+process.env.WS_PREFIX);
     socket.on('connect',  ()=>{
       console.log('client connect server');
       this.$socket.emit('client-padpage', "connection from pad page......"); 
@@ -42,8 +45,10 @@ export default {
  
   methods:{
     
-    initWorker(){
-
+    startScript(){
+      setInterval(this.catchCrab, 5000);
+      setInterval(this.packCrab, 10000);
+      setInterval(this.orderCrab, 15000);
     },
 
     async catchCrab(){
@@ -57,7 +62,7 @@ export default {
                   message: 'Catch success.',
                   type: 'success'
                 });
-
+        this.$api.booth.catchcrab();
         await this.$socket.emit('pad-stage', {stage: "catch"});
       }
       
@@ -75,7 +80,7 @@ export default {
             message: 'Pack success.',
             type: 'success'
           });
-
+        this.$api.booth.packcrab();
         await this.$socket.emit('pad-stage', {stage: "pack"});
       }
     },
@@ -91,7 +96,7 @@ export default {
             message: 'Order success.',
             type: 'success'
           });
-
+        this.$api.booth.ordercrab();
         await this.$socket.emit('pad-stage', {stage: "pack"});
       }
     },
@@ -109,7 +114,7 @@ export default {
             message: 'Merge success.',
             type: 'success'
           });
-
+       this.$api.booth.toAgency();
         await this.$socket.emit('pad-stage', {stage: "merge"});
       }
     },
@@ -125,7 +130,7 @@ export default {
             message: 'Custom success.',
             type: 'success'
           });
-
+        this.$api.booth.toCustom();
         await this.$socket.emit('pad-stage', {stage: "custom"});
       }
     },
@@ -141,7 +146,7 @@ export default {
             message: 'Distribution success.',
             type: 'success'
           });
-
+       this.$api.booth.toDistributor();
         await this.$socket.emit('pad-stage', {stage: "distribution"});
       }
     },
@@ -157,7 +162,7 @@ export default {
             message: 'Retail success.',
             type: 'success'
           });
-
+        this.$api.booth.toRetailer();
         await this.$socket.emit('pad-stage', {stage: "retail"});
       }
     },
@@ -189,7 +194,7 @@ export default {
             message: 'Purchase success.',
             type: 'success'
           });
-
+        this.$api.booth.buy();
         await this.$socket.emit('pad-stage', {stage: "purchase"});
       }
     },
