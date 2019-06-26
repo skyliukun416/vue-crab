@@ -20,15 +20,15 @@
        <div class="cards">
          <div class="card">
            <div class="tit">供应商</div>
-           <div>{{card.supplier}}</div>
+           <div class="num">{{card.supplier}}</div>
          </div>
          <div class="card">
            <div class="tit">上海代理</div>
-           <div>{{card.agency}}</div>
+           <div class="num">{{card.agency}}</div>
          </div>
          <div class="card">
            <div class="tit">上海海关</div>
-           <div>{{card.custom}}</div>
+           <div class="num">{{card.custom}}</div>
          </div>
        </div>
        <div style="width:80%">
@@ -447,8 +447,18 @@ i{
 
 .tit{
   height:50px;
-  padding:10px;
+  line-height:50px;
+ 
+  border-bottom:1px solid;
 }
+
+.num{
+  height:50px;
+  line-height:50px;
+
+  
+}
+
 .card{
   background-color: #2d2d2e;
   width:31%;  

@@ -30,8 +30,7 @@ mounted(){
 
    if(this.id=="singaporemap"){
      var count = 1;
-      hm.series[0].setData([330,330,330,330])  
-            hm.title.update({text:"十二月礼盒销售情况"}) 
+    
      
       /*setInterval(()=>{
         
