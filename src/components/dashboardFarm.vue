@@ -143,7 +143,7 @@ import { setInterval } from 'timers';
       return1:{
             chart: {
                 type: 'bar',
-                height:300,
+                height:345,
                 width:490, 
 
             },
@@ -189,7 +189,7 @@ import { setInterval } from 'timers';
       map:{
           chart:{
             width:450,
-            height:335,
+        
             spacingTop:40,
           },
           credits:{
@@ -234,7 +234,7 @@ import { setInterval } from 'timers';
           plotShadow: false,
           type: 'pie',
           width:450,
-          height:335,
+          
           spacingTop:40,
         },
         title: {
@@ -335,7 +335,7 @@ import { setInterval } from 'timers';
               if(this.card.custom>1000||this.card.custom<0){
                 this.card.custom = 200
               }
-              if(this.transaction_data.length == 5){
+              if(this.transaction_data.length == 6){
                 this.transaction_data.pop()
               }
             },9000)
@@ -348,7 +348,7 @@ import { setInterval } from 'timers';
               if(this.card.supplier>1000||this.card.supplier<0){
                 this.card.supplier = 200
               }
-              if(this.transaction_data.length == 5){
+              if(this.transaction_data.length == 6){
                 this.transaction_data.pop()
               }
             },12000)
@@ -361,7 +361,7 @@ import { setInterval } from 'timers';
               if(this.card.agency>1000||this.card.agency<0){
                 this.card.agency = 200
               }
-              if(this.transaction_data.length == 5){
+              if(this.transaction_data.length == 6){
                 this.transaction_data.pop()
               }
             },15000)
@@ -391,7 +391,7 @@ import { setInterval } from 'timers';
 
 #db{
   width:100%;
-  height:725px;
+  /*height:725px;*/
   background-color:#3a3a3c;
 }
 
@@ -468,7 +468,7 @@ i{
 .transactions{
  
   width:100%;  
-  min-height:90px;
+  min-height:190px;
   text-align: left;
   padding:10px;
 }

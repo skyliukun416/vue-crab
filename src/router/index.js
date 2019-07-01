@@ -5,6 +5,7 @@ import Pad from '@/components/Pad'
 import Index from '@/components/Index'
 import Login from '@/components/Login'
 import dashboardFarm from '@/components/dashboardFarm'
+import crabdemo from '@/components/crabdemo'
 import Summary0 from '@/components/mobile/Summary0'
 import Summary1 from '@/components/mobile/Summary1'
 import Summary2 from '@/components/mobile/Summary2'
@@ -73,6 +74,11 @@ export default new Router({
       path: '/demo/dashboard/',
       name: 'dashboard-farm',
       component: dashboardFarm
+    },
+    {
+      path: '/crabdemo',
+      name: 'crabdemo',
+      component: crabdemo
     },
     {
       path: '/qme/home',

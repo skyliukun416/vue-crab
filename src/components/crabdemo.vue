@@ -1,30 +1,37 @@
 <template>
-    <div style="margin-top:20%;font-size:32px;">
-    <router-link to="/pad">PAD</router-link>
-    <router-link to="/crabdemo">CrabDemo</router-link>
-    <router-link to="/m/summary0">SUMMARY</router-link>
-    <router-link to="/m/trace">TRACE</router-link>
-    <router-link to="/location">LOCATION</router-link>
-    <router-link to="/demo/dashboard">Crab Dashboard</router-link>
+    <div>
+      <location v-show="show"></location>
+      <dashboard v-show="!show"></dashboard>
+    
    
-    <router-view></router-view> 
+
     </div>
 </template>
 
 <script>
+import location from './location.vue'
+import dashboard from './dashboardFarm.vue'
+import { setInterval } from 'timers';
 export default {
-  name: 'Pad',
+
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      show:true
     }
   }
   ,
   created(){
 
   },
-  methods:{
-    
+  mounted(){
+    setInterval(()=>{
+      this.show = !this.show
+    },60000)
+
+  },
+  components:{
+    location,
+    dashboard
   }
 }
 </script>
