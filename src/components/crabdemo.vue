@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="width:100%">
       <location v-show="show"></location>
       <dashboard v-show="!show"></dashboard>
     
