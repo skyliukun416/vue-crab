@@ -391,6 +391,7 @@ import { setInterval } from 'timers';
 
 #db{
   width:100%;
+  height: 100%;
   /*height:725px;*/
   background-color:#3a3a3c;
 }

@@ -10,7 +10,8 @@
     <el-button type="primary" @click="retail()">retail</el-button>
     <el-button type="primary" @click="unpack()">unpack</el-button>
     <el-button type="primary" @click="purchase()">purchase</el-button>
-    <el-button type="primary" @click="startScript()">start script</el-button>
+    <el-button type="primary" @click="stopSwitch()">stop switch</el-button>
+    <el-button type="primary" @click="startSwitch()">start switch</el-button>
     </el-row>
   </div>
 </template>
@@ -45,10 +46,12 @@ export default {
  
   methods:{
     
-    startScript(){
-      setInterval(this.catchCrab, 5000);
-      setInterval(this.packCrab, 10000);
-      setInterval(this.orderCrab, 15000);
+    async stopSwitch(){
+      await this.$socket.emit('demoswitch', {switcher: false});
+    },
+
+    async startSwitch(){
+      await this.$socket.emit('demoswitch', {switcher: true});
     },
 
     async catchCrab(){
