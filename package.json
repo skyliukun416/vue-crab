@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "element-ui": "^2.6.3",
+    "element-ui": "^2.11.1",
     "highcharts": "^7.1.1",
     "socket.io-client": "^2.2.0",
     "vue": "^2.5.2",

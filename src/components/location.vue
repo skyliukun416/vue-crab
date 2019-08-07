@@ -1,484 +1,383 @@
 <template>
   <div id="main" v-cloak>
-    <div class="title">EY Blockchain Crab Traceability Demo</div>
-    <div class="subtitle">安永大闸蟹区块链之旅</div>
+    <!--<div class="title">EY Blockchain Crab Traceability Demo</div>
+    <div class="subtitle">安永大闸蟹区块链之旅</div>-->
+    <div class="title">{{title}}</div>
+    <div class="subtitle">{{subtitle}}</div>
     <div id="content">
-      
-
       <div id="collapse">
-       <el-collapse v-model="activeNames" @change="handleChange">
-        <el-collapse-item v-for='(location, index) of locations' :name="index+1" :title="location.name">
-          <!--
-            <div class="crab-row">
-            <div class="crab" v-for='crab of location.assets.crab'><img style="height:40px;width:40px;" src="../assets/crab.png"></div> 
-          </div>
-          <div class="pack-row">
-            <div class="pack" v-for='pack of location.assets.pack'><img style="height:40px;width:40px;" src="../assets/pack.png"></div>
-          </div>
-          -->
-          <div style="">
-            <div id="cblock" v-if='location.assets.crab.length!=0'>
-               <div class='br'> 
-                    
-                    <el-badge :value="location.assets.crab.length">
-                      <el-button size="small">Crabs</el-button>
-                      </el-badge>
-                      
-                   
-                   <!--
-                  <div class="item">ID</div>
-                  <div class="item">Weight</div>
-                  <div class="item">Gender</div>
-                  <div class="item">Date</div>
-                  <div class="item">Code</div>
-                  -->
+        <el-collapse v-model="activeNames">
+          <el-collapse-item v-for="(location, index) of locations" :name="index+1">
+            <template slot="title">
+              <span>{{location.name}}</span>
+              <span v-show="enableSettlement" style="position: absolute;;right:50px;">{{location.balance | balance}}</span>
+            </template>
+            <div style>
+              <div id="cblock" v-if="location.assets.crab.length!=0">
+                <div class="br">
+                  <el-badge :value="location.assets.crab.length">
+                    <el-button size="small">Crabs</el-button>
+                  </el-badge>
                 </div>
-                
-              
-              <div v-for='crab in location.assets.crab'>
-                <div class="tit"><img style="width:30px;height:30px;" src='../assets/crab2.png'></div>
-                <div class="item">{{crab.id}}</div>
-                <div class="item">{{crab.weight}}</div>
-                <div class="item">{{crab.gender}}</div>
-                <div class="item">{{crab.birth}}</div>
-                <!--<div class="item">{{crab.code}}</div>-->
-
+                <div v-for="item in location.assets.crab">
+                  <div class="tit">
+                    <img style="width:30px;height:30px;" src="../assets/crab2.png">
+                  </div>
+                  <div v-for="(v,k) in item">
+                    <div class="item" v-if="k!='type'&&k!='class'">{{v}}</div>
+                  </div>
+                </div>
               </div>
-              
-            </div>
-            <div id="pblock" v-if='location.assets.pack.length!=0'>
-              <div class='br'>
-             
-                 
-                    
-                    <el-badge :value="location.assets.pack.length">
-                      <el-button size="small">Packs</el-button>
-                      </el-badge>
-                      
-                   
-                   <!--
-                  <div class="item">ID</div>
-                  <div class="item">Tempreture</div>
-                  <div class="item">Humidity</div>
-                  <div class="item">Date</div>
-                  -->
-               
+              <div id="pblock" v-if="location.assets.pack.length!=0">
+                <div class="br">
+                  <el-badge :value="location.assets.pack.length">
+                    <el-button size="small">Packs</el-button>
+                  </el-badge>
+                </div>
+                <div v-for="item in location.assets.pack">
+                  <div class="tit">
+                    <img style="width:30px;height:30px;" src="../assets/pack2.png">
+                  </div>
+                  <div v-for="(v,k) in item">
+                    <div class="item" v-if="k!='type'&&k!='class'">{{v}}</div>
+                  </div>
+                </div>
               </div>
-              <div v-for='pack in location.assets.pack'>
-                <div class="tit"><img style="width:30px;height:30px;" src='../assets/pack2.png'></div>
-                <div class="item">{{pack.id}}</div>
-                <div class="item">{{pack.tempreture}}°C</div>
-                <div class="item">{{pack.humidity}}RH</div>
-                <div class="item">{{pack.date}}</div>
-
-              </div>
-            </div>
-            <div id="oblock" v-if='location.assets.order.length!=0'>
-              <div class='br'>
-              
-                 
-                    
-                    <el-badge :value="location.assets.order.length">
-                      <el-button size="small">Orders</el-button>
-                      </el-badge>
-                      
-                    
-                   <!--
-                  <div class="item">Order ID</div>
-                  <div class="item">Date</div>
-                  <div class="item">Carrier</div>
-                  <div class="item">Tracking Number</div>
-                  -->
-                
-              </div>
-              <div v-for='order in location.assets.order'>
-                <div class="tit"><img style="width:30px;height:30px;" src='../assets/order.png'></div>
-                <div class="item">{{order.orderID}}</div>
-                
-                <div class="item">{{order.carrier}}</div>
-                <div class="item">{{order.tracking_number}}</div>
-                <div class="item">{{order.date}}</div>
-
+              <div id="oblock" v-if="location.assets.order.length!=0">
+                <div class="br">
+                  <el-badge :value="location.assets.order.length">
+                    <el-button size="small">Orders</el-button>
+                  </el-badge>
+                </div>
+                <div v-for="item in location.assets.order">
+                  <div class="tit">
+                    <img style="width:30px;height:30px;" src="../assets/order.png">
+                  </div>
+                  <div v-for="(v,k) in item">
+                    <div class="item" v-if="k!='type'&&k!='class'">{{v}}</div>
+                  </div>
+                </div>
               </div>
             </div>
-
-          
-          
-          </div>
-          
-
-        
-          
-        </el-collapse-item>
-      </el-collapse>
-
+          </el-collapse-item>
+        </el-collapse>
+      </div>
+      <div id="events">
+        <events ref="ev"></events>
+      </div>
     </div>
-   <div id="events"><events ref='ev'></events></div>
+    <div class="fuceng_bg" v-bind:style="{display:dc.fuceng_bg}">
+      <div class="animation">
+        <img :class="dc.fuceng_class" class="ccrab" src="../assets/crab-gif.gif">
+      </div>
     </div>
-  <div class="fuceng_bg" v-bind:style="{display:dc.fuceng_bg}">
-
-    <div class="animation">
-      <img :class="dc.fuceng_class" class="ccrab" src='../assets/crab-gif.gif'>
-    </div>
-    
-  </div>
-  
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import events from './events.vue'
+import events from "./events.vue";
 
 export default {
-  name: 'Location',
-  data () {
+  name: "Location",
+  data() {
     return {
+      title:"",
+      subtitle:"",
+      enableSettlement:"",
       locations: [],
       activeNames: [1],
-      dc:{
-        fuceng_bg:"none",
-        fuceng_class:""
+      dc: {
+        fuceng_bg: "none",
+        fuceng_class: ""
       },
-      refreshEvent:true,
-      
-    }
+      refreshEvent: true
+    };
   },
-   created() {
+  created() {
     window.$location = this;
     //this.refreshLocation();
     this.login();
     this.getLocations();
+    //this.buycoins();
+    this.getPartiesFromFile();
+    this.getAssetsFromFile();
+  },
+  filters: {
+    balance(val) {
+      if (val != 0 && val.length < 10) {
+        return " ¥" + val;
+      }
+    }
+  },
+  sockets: {
+    connect() {
+      console.log("Client from location page connect server success!");
+
+      this.$socket.emit(
+        "client-locationpage",
+        "connection from location page......"
+      );
+    },
+    padaction(data) {
+      console.log("Data from server:" + data.action);
+      if (data.action == "0") {
+        this.activeNames = [1];
+      }
+      if (data.action == "00") {
+        // unpack
+        this.activeNames = [5];
+      }  else if (data.action == "1") {
+
+        this.dc.fuceng_bg = "block";
+        this.dc.fuceng_class = "crab1";
+        setTimeout(() => {
+          this.dc.fuceng_bg = "none";
+        }, 10000);
+        this.activeNames = [2];
+
+      } else if (data.action == "2") {
+        
+        this.dc.fuceng_bg = "block";
+        this.dc.fuceng_class = "crab2";
+        setTimeout(() => {
+          this.dc.fuceng_bg = "none";
+        }, 10000);
+        this.activeNames = [3];
+
+      } else if (data.action == "3") {
+        this.dc.fuceng_bg = "block";
+        this.dc.fuceng_class = "crab3";
+        setTimeout(() => {
+          this.dc.fuceng_bg = "none";
+        }, 10000);
+        this.activeNames = [4];
+      } else if (data.action == "4") {
+        this.dc.fuceng_bg = "block";
+        this.dc.fuceng_class = "crab4";
+        setTimeout(() => {
+          this.dc.fuceng_bg = "none";
+        }, 10000);
+        this.activeNames = [5];
+      } else if (data.action == "5") {
+        this.dc.fuceng_bg = "block";
+        this.dc.fuceng_class = "crab5";
+        setTimeout(() => {
+          this.dc.fuceng_bg = "none";
+        }, 10000);
+        this.activeNames = [6];
+      } 
+      this.getLocations();
+      this.$refs.ev.getAllEvents();
+    }
   },
 
-  sockets: {
-   connect(){
-     console.log("Client from location page connect server success!");
-
-     this.$socket.emit('client-locationpage', "connection from location page......"); 
-   },
-   padaction(data){
-     console.log("Data from server:" + data.action);
-     if(data.action=="1"){
-       this.activeNames = [1];
-     }else if(data.action=="2"){
-       this.activeNames = [1];
-     }else if(data.action=="3"){
-       this.dc.fuceng_bg = "block";
-       this.dc.fuceng_class = "crab1";
-       setTimeout(()=>{ 
-         this.dc.fuceng_bg = "none"; 
-         }, 10000);
-       this.activeNames = [2];
-     }
-     else if(data.action=="4"){
-       this.dc.fuceng_bg = "block";
-       this.dc.fuceng_class = "crab2";
-       setTimeout(()=>{ 
-         this.dc.fuceng_bg = "none"; 
-         }, 10000);
-       this.activeNames = [3];
-     }
-     else if(data.action=="5"){
-       this.dc.fuceng_bg = "block";
-       this.dc.fuceng_class = "crab3";
-       setTimeout(()=>{ 
-         this.dc.fuceng_bg = "none"; 
-         }, 10000);
-       this.activeNames = [4];
-     }
-     else if(data.action=="6"){
-       this.dc.fuceng_bg = "block";
-       this.dc.fuceng_class = "crab4";
-       setTimeout(()=>{ 
-         this.dc.fuceng_bg = "none"; 
-         }, 10000);
-       this.activeNames = [5];
-     }
-     else if(data.action=="7"){
-       this.activeNames = [5];
-     }
-     else if(data.action=="8"){
-       this.dc.fuceng_bg = "block";
-       this.dc.fuceng_class = "crab5";
-       setTimeout(()=>{ 
-         this.dc.fuceng_bg = "none"; 
-         }, 10000);
-       this.activeNames = [6];
-     }
-    
-     
-     this.getLocations();
-     this.$refs.ev.getAllEvents();
-   }
-}, 
-
   methods: {
-    
-    handleChange(val) {
-        console.log(val);
-      }
-    ,
 
-    /*
-     refreshLocation: function(){
-      window.addEventListener('storage', (e) => {
-        if(e.key == 'refreshPage'){
-          this.getLocations();
-          localStorage.refreshPage = false;
-        }
-      })
-    },
-    */
+    getLocations() {
+      this.$api
+        .getLocations()
+        .then(res => {
 
-    getLocations(){
-      this.$api.getLocations().then(res=>{
-        //.log(res);
-        // array of 6 locations [address, balance, name]
-        let temp_locations = res.data.data.res;
-        temp_locations.map(each=>{
-          each.assets = {
-            crab: [],
-            pack: [],
-            order: [],
-          }
-          this.$api.getLocationDetails(each.name).then(res=>{
-            res.data.data.assetsList.map(res=>{
-              this.$api.getAssetsDetail(res.assetAddress).then(r=>{
-                  if (res.assetType == 'crab'){
-                    
-                    var result = r.data[res.assetAddress].asset.filter(e=>{
-                        if(e.length!= 0)return e;
-                     })
-                    //res.img = "../assets/crab.png";
-                    res.birth = result[0].birth;
-                    res.id = result[0].id;
-                    res.gender = result[0].gender;
-                    res.weight = result[0].weight;//fake data
-                    res.code = result[0].code;
-                    each.assets.crab.push(res);
-                    //this.$set(each.assets.crab,0,res);
-                  }
-                  if (res.assetType == 'pack'){
-                    var result = r.data[res.assetAddress].asset.filter(e=>{
-                      if (e.type == 'pack')return e;
-                    })
-                    //res.img = "../assets/pack.png";
-                    res.tempreture = result[0].tempreture;
-                    res.humidity = result[0].humidity;
-                    res.empty = result[0].empty;
-                    res.id = result[0].ID;
-                    res.date = result[0].date;
-                    each.assets.pack.push(res);
-                    //this.$set(each.assets.pack,0,res);
-                  }
-                  if (res.assetType == 'order'){
-                    var result = r.data[res.assetAddress].asset.filter(e=>{
-                      if (e.type == 'order')return e;
-                    })
-                    res.tracking_number = result[0].tracking_number;
-                    res.carrier = result[0].carrier;
-                    res.orderID = result[0].orderID;
-                    res.date = result[0].date;
-                    each.assets.order.push(res);
-                    //this.$set(each.assets.order,0,res);
-                  }
-              })         
-          })
+          let temp_locations = res.data.data.res;
+
+          temp_locations.map(each => {
+            each.assets = {
+              crab: [],
+              pack: [],
+              order: []
+            };
+            this.$api.getLocationDetails(each.name).then(res => {
+              res.data.data.assetsList.map(res => {
+                let asset = Object.values(res.assetDetail)[0].asset[1];
+                if (asset.type == "product") {
+                  each.assets.crab.push(asset);
+                } else if (asset.type == "pack") {
+                  each.assets.pack.push(asset);
+                } else if (asset.type == "order") {
+                  each.assets.order.push(asset);
+                }  
+              });
+            });
           });
+          temp_locations.sort((a, b) => {
+            let v1 = a.index;
+            let v2 = b.index;
+            return v1 - v2;
+          });
+          this.locations = temp_locations;
         })
-        temp_locations.map(loc=>{
-          if(loc.name == "SZCrabFarm"){
-            //this.locations[0] = loc;
-            this.$set(this.locations, 0, loc); 
-            this.locations[0].name = "Yangcheng Lake Crab Farm (阳澄湖农场)"
-          }
-          else if(loc.name == "SHCrabAgency"){
-            //this.locations[1] = loc;
-            this.$set(this.locations, 1, loc);
-            this.locations[1].name = "Shanghai Crab Agency (上海大闸蟹代理)"
-          }
-          else if(loc.name == "SHCustom"){
-            //this.locations[2] = loc;
-            this.$set(this.locations, 2, loc);
-            this.locations[2].name = "Shanghai Custom (上海海关)"
-          }
-          else if(loc.name == "SGDistributionCentre"){
-            //this.locations[3] = loc;
-            this.$set(this.locations, 3, loc);
-            this.locations[3].name = "Singapore Distribution Centre (新加坡分销中心)"
-          }
-          else if(loc.name == "SGRetailer"){
-            //this.locations[4] = loc;
-            this.$set(this.locations, 4, loc);
-            this.locations[4].name = "Singapore Retailer (新加坡超市)"
-          }
-          else if(loc.name == "SGCustomer"){
-            //this.locations[5] = loc;
-            this.$set(this.locations, 5, loc);
-            this.locations[5].name = "Singapore Customer (新加坡客户)"
-          }
-        })
-      }).then(()=>{
-      })
+        .then(() => {});
     },
 
     login() {
+      let param = {
 
-      let param  = {
-            //email: account.accountName,
-            email: 'owner',
-            password: '',
-          };
-      this.$api.login(param).then(res=>{
-          localStorage.setItem('token', res.data.data.user.token);
-          localStorage.setItem('role', res.data.data.user.role);
-          localStorage.setItem('address',res.data.data.user.address);
-          localStorage.setItem('name',res.data.data.user.name);
-      })
-  },
+        email: "owner",
+        password: ""
+      };
+      this.$api.login(param).then(res => {
 
-  getLocationDetails(each){
-    let param = {};
-    param.workerAddress = 0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311;
-    this.$api.getLocationDetails(each, param).then(res=>{
+      });
+    },
+
+    getLocationDetails(each) {
+      let param = {};
+      param.workerAddress = 0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311;
+      this.$api.getLocationDetails(each, param).then(res => {
         //log(res);
         //this.locations = res.data.data.res;
-      })
-  }
+        console.log(res.data.data.res);
+      });
+    },
 
-},
-components:{events}
-}
+    getPartiesFromFile() {
+      let param = {};
+      param.workerAddress = 0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311;
+      this.$api.getPartiesFromFile(param).then(res => {
+        this.title = res.data.data.data.title;
+        this.subtitle = res.data.data.data.subtitle;
+        this.enableSettlement = res.data.data.data.enableSettlement;
+      });
+    },
+
+    getAssetsFromFile() {
+      let param = {};
+      param.workerAddress = 0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311;
+      this.$api.getAssetsFromFile(param).then(res => {
+        //log(res);
+        //this.locations = res.data.data.res;
+        console.log(res.data.data.res);
+      });
+    },
+
+    buycoins() {
+      this.$api.buycoins({ coins: 1000, location: "SGCustomer" });
+    }
+  },
+  components: { events }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.title{
-    font-size: 36px;
-    font-weight: 600;
-    display: flex;
-    width: 100%;
-    margin-top: 25px;
-    justify-content: center;
+.title {
+  font-size: 36px;
+  font-weight: 600;
+  display: flex;
+  width: 100%;
+  margin-top: 25px;
+  justify-content: center;
 }
 
-.subtitle{
+.subtitle {
   padding-bottom: 40px;
   font-size: 24px;
   font-weight: 600;
 }
-#main{
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
+#main {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
 }
 
-#content{
+#content {
   display: flex;
   justify-content: space-around;
   padding: 0 50px 0 50px;
 }
 #ld {
-  width:20%;
+  width: 20%;
   display: flex;
   justify-content: space-around;
 }
-#collapse{
-  width:900px;
-  float:right;
-  
+#collapse {
+  width: 900px;
+  float: right;
 }
 
-
-.el-collapse-item{
-
- // padding-left:15px;
+.el-collapse-item {
+  // padding-left:15px;
 }
 
-#cblock, #pblock, #oblock{
-  display:flex;
-  margin-bottom:5px;
+#cblock,
+#pblock,
+#oblock {
+  display: flex;
+  margin-bottom: 5px;
 }
 
-.title{
-  display:flex;
+.title {
+  display: flex;
   flex-wrap: wrap;
-
 }
 
-.br{
-  border-right:1px solid #ebeef5;
-  min-width:120px;
-  display:flex;
-      justify-content: center;
+.br {
+  border-right: 1px solid #ebeef5;
+  min-width: 120px;
+  display: flex;
+  justify-content: center;
 }
-.tit{
-  height:50px;
-  width:155px;
-  display:flex;
+.tit {
+  height: 50px;
+  width: 155px;
+  display: flex;
   font-weight: 600;
-  align-items:center;
-  justify-content:center;
-  border-right:1px solid #ebeef5;
-
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ebeef5;
 }
-.item{
-  width:155px;
-  height:24px;
+.item {
+  width: 155px;
+  height: 24px;
   font-weight: 600;
-  line-height:30px;
-  border-right:1px solid #ebeef5;
+  line-height: 30px;
+  border-right: 1px solid #ebeef5;
 }
 
 .crab {
-    width: 40px;
-    height: 40px;
-    margin-right: 1px;
+  width: 40px;
+  height: 40px;
+  margin-right: 1px;
 }
 
-.cell img{
-  margin:0 auto;
+.cell img {
+  margin: 0 auto;
   display: flex !important;
 }
 
 .el-button {
-    color: #409EFF;
-    border-color: #c6e2ff;
-    background-color: #ecf5ff;
+  color: #409eff;
+  border-color: #c6e2ff;
+  background-color: #ecf5ff;
 }
 
 .el-collapse-item__header {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 .el-button--small {
   //font-size:14px;
 }
 
-.el-collapse-item__content{
+.el-collapse-item__content {
   font-size: 14px;
 }
 
-
 .fuceng_bg {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 9999;
- 
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
 }
 
-.animation{
-
-  background-image: url('../assets/location/location-path.png');
-  height: 600px;   
+.animation {
+  background-image: url("../assets/location/location-path.png");
+  height: 600px;
   width: 1100px;
   left: 0;
   top: 0;
@@ -486,120 +385,112 @@ components:{events}
   top: 0;
   bottom: 0;
   position: absolute;
-  margin:  auto;
-  background-size: 100% auto; 
-  background-repeat: no-repeat; 
+  margin: auto;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
 }
 
-
-.ccrab{
-  width:80px;
-  height:60px;
+.ccrab {
+  width: 80px;
+  height: 60px;
 }
-.crab1{
-    
-    position: absolute;
-        top: 200px;
-    left: 85px;
-    animation: move1 8s linear 0s;
-    animation-fill-mode: forwards;
+.crab1 {
+  position: absolute;
+  top: 200px;
+  left: 85px;
+  animation: move1 8s linear 0s;
+  animation-fill-mode: forwards;
 }
 @keyframes move1 {
-            0%{
-                transform: translate(0px,0px);
-            }
-           
-            100%{
-                transform: translate(0px,140px);
-            }
-        }
+  0% {
+    transform: translate(0px, 0px);
+  }
 
-.crab2{
-    
-    position: absolute;
-        top: 439px;
-    left: 185px;
-    animation: move2 8s linear 0s;
-    animation-fill-mode: forwards;
+  100% {
+    transform: translate(0px, 140px);
+  }
+}
+
+.crab2 {
+  position: absolute;
+  top: 439px;
+  left: 185px;
+  animation: move2 8s linear 0s;
+  animation-fill-mode: forwards;
 }
 @keyframes move2 {
-            0%{
-                transform: translate(0px,0px);
-            }
-           
-            100%{
-                transform: translate(210px,-130px);
-            }
-        }
+  0% {
+    transform: translate(0px, 0px);
+  }
 
-.crab3{
-    
-    position: absolute;
-    top: 197px;
-    left: 582px;
-    animation: move3 8s linear 0s;
-    animation-fill-mode: forwards;
+  100% {
+    transform: translate(210px, -130px);
+  }
+}
+
+.crab3 {
+  position: absolute;
+  top: 197px;
+  left: 582px;
+  animation: move3 8s linear 0s;
+  animation-fill-mode: forwards;
 }
 @keyframes move3 {
-            0%{
-                transform: translate(0px,0px);
-            }
-           
-            100%{
-                    transform: translate(185px,-121px);
-            }
-        }
+  0% {
+    transform: translate(0px, 0px);
+  }
 
-.crab4{
-    
-    position: absolute;
-        top: 156px;
-    left: 882px;
-    animation: move4 8s linear 0s;
-    animation-fill-mode: forwards;
+  100% {
+    transform: translate(185px, -121px);
+  }
+}
+
+.crab4 {
+  position: absolute;
+  top: 156px;
+  left: 882px;
+  animation: move4 8s linear 0s;
+  animation-fill-mode: forwards;
 }
 @keyframes move4 {
-            0%{
-                transform: translate(0px,0px);
-            }
-            
-            100%{
-                transform: translate(0px,216px);
-            }
-        }
+  0% {
+    transform: translate(0px, 0px);
+  }
 
-.crab5{
-    
-    position: absolute;
-        top: 474px;
-    left: 796px;
-    animation: move5 5s linear 0s;
-    animation-fill-mode: forwards;
+  100% {
+    transform: translate(0px, 216px);
+  }
+}
+
+.crab5 {
+  position: absolute;
+  top: 474px;
+  left: 796px;
+  animation: move5 5s linear 0s;
+  animation-fill-mode: forwards;
 }
 @keyframes move5 {
-            0%{
-                transform: translate(0px,0px);
-            }
-           
-           
-            100%{
-                transform: translate(-241px,0px);
-            }
-        }
+  0% {
+    transform: translate(0px, 0px);
+  }
 
-.el-badge{
-  margin-top:11px;
+  100% {
+    transform: translate(-241px, 0px);
+  }
+}
+
+.el-badge {
+  margin-top: 11px;
 }
 </style>
 <style>
-.el-collapse-item__header{
-  font-size:16px !important;
-  padding-left:10px;
-
+.el-collapse-item__header {
+  font-size: 16px !important;
+  padding-left: 10px;
+  position: relative;
 }
- .el-button--small{
-
-   font-size:14px !important; 
-   font-weight: 600 !important;
+.el-button--small {
+  font-size: 14px !important;
+  font-weight: 600 !important;
 }
 </style>

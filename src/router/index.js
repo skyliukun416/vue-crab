@@ -4,7 +4,8 @@ import Location from '@/components/location'
 import Pad from '@/components/Pad'
 import Index from '@/components/Index'
 import Login from '@/components/Login'
-import dashboardFarm from '@/components/dashboardFarm'
+import dashboard from '@/components/dashboard/Dashboard'
+import leftChart from '@/components/dashboard/LeftChart'
 import crabdemo from '@/components/crabdemo'
 import Summary0 from '@/components/mobile/Summary0'
 import Summary1 from '@/components/mobile/Summary1'
@@ -69,11 +70,19 @@ export default new Router({
       path: '/m/trace/details',
       name: 'trace-details',
       component: traceDetails
+    },{
+      path: '/demo/dashboard/leftchart',
+      name: 'leftChart',
+      component: leftChart
     },
     {
       path: '/demo/dashboard/',
-      name: 'dashboard-farm',
-      component: dashboardFarm
+      name: 'dashboard',
+      component: dashboard,
+      children: [{
+      	path: 'leftChart',
+        component: leftChart
+      }, ]
     },
     {
       path: '/crabdemo',

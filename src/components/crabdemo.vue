@@ -10,7 +10,7 @@
 
 <script>
 import location from './location.vue'
-import dashboard from './dashboardFarm.vue'
+import dashboard from './dashboard/Dashboard.vue'
 import { setInterval } from 'timers';
 export default {
 

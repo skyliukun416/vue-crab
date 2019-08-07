@@ -1,213 +1,230 @@
 <template>
-<div style="margin-top:200px;">
-    <el-row>
-    <el-button type="primary" @click="catchCrab()">catch</el-button>
-    <el-button type="primary" @click="packCrab()">pack</el-button>
-    <el-button type="primary" @click="orderCrab()">order</el-button>
-    <el-button type="primary" @click="mergeCrab()">agent</el-button>
-    <el-button type="primary" @click="custom()">custom</el-button>
-    <el-button type="primary" @click="distributionCenter()">distributionCenter</el-button>
-    <el-button type="primary" @click="retail()">retail</el-button>
-    <el-button type="primary" @click="unpack()">unpack</el-button>
-    <el-button type="primary" @click="purchase()">purchase</el-button>
-    <el-button type="primary" @click="stopSwitch()">stop switch</el-button>
-    <el-button type="primary" @click="startSwitch()">start switch</el-button>
-    </el-row>
+  <div class="pad">
+    <div class="block">
+      <el-row>
+        <el-button type="primary" plain size="small" @click="catchCrab()">Production</el-button>
+        <!--<el-button type="primary" plain size="small" @click="packCrab()">Packing</el-button>-->
+        <el-button type="primary" plain size="small" @click="orderCrab()">Ordering</el-button>
+        <el-button type="primary" plain size="small" @click="unpack()">Unpack</el-button>
+        
+      </el-row>
+    </div>
+     <div class="block">
+      <el-row>
+        <el-button v-for="x in (1, parties.length-1)" type="info" plain size="small" @click="transferProduct(x)">To {{parties[x].name}}</el-button>
+        
+      </el-row>
+     </div>
+    <div class="block">
+      <el-row>
+        <el-button type="warning" plain size="small" @click="stopSwitch()">stop switch</el-button>
+        <el-button type="warning" plain size="small" @click="startSwitch()">start switch</el-button>
+        <el-button type="warning" plain size="small" @click="buyCoins()">buy Coins</el-button>
+      </el-row>
+    </div>
   </div>
 </template>
 
 <script>
-import '@/assets/js/socket.io';
-import io from 'socket.io-client';
-import API from '@/api/api.js';
-import { setInterval } from 'timers';
+import "@/assets/js/socket.io";
+import io from "socket.io-client";
+import API from "@/api/api.js";
+import { setInterval } from "timers";
 export default {
-  name: 'pad',
-  data () {
+  name: "pad",
+  data() {
     return {
-      
-    }
+      parties: [],
+      file:{}
+    
+
+    };
   },
 
-  created(){
+  mounted() {
+    //this.getLocationDetails();
+    this.getPartiesFromFile();
+  },
+
+  created() {
     window.$pad = this;
     //var socket = io.connect('http://localhost:3009');
     var socket = io.connect(process.env.WS_PREFIX);
-    console.log("PAD socket connecting"+process.env.WS_PREFIX);
-    socket.on('connect',  ()=>{
-      console.log('client connect server');
-      this.$socket.emit('client-padpage', "connection from pad page......"); 
+    console.log("PAD socket connecting" + process.env.WS_PREFIX);
+    socket.on("connect", () => {
+      console.log("client connect server");
+      this.$socket.emit("client-padpage", "connection from pad page......");
     });
-    socket.on('disconnect', ()=>{
-      console.log('client disconnect');
+    socket.on("disconnect", () => {
+      console.log("client disconnect");
     });
-    
   },
- 
-  methods:{
-    
-    async stopSwitch(){
-      await this.$socket.emit('demoswitch', {switcher: false});
+
+  methods: {
+    async getPartiesFromFile() {
+      let res = await this.$api.getPartiesFromFile();
+      this.file = res.data.data.data;
+      this.$api.getLocations().then(res => {
+        res.data.data.res.sort((a, b) => {
+          let v1 = a.index;
+          let v2 = b.index;
+          return v1 - v2;
+        });
+        this.parties = res.data.data.res;
+      });
     },
 
-    async startSwitch(){
-      await this.$socket.emit('demoswitch', {switcher: true});
+    async buyCoins() {
+      //await this.$api.buycoins({coins:1000, location: "SGCustomer"})
+      await this.$api.buycoins({
+        coins: 1000,
+        location: this.parties[this.parties.length - 1].name
+      });
     },
 
-    async catchCrab(){
+    async stopSwitch() {
+      await this.$socket.emit("demoswitch", { switcher: false });
+    },
+
+    async startSwitch() {
+      await this.$socket.emit("demoswitch", { switcher: true });
+    },
+
+    async catchCrab() {
       let param = {
-        workerAddress:0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
-      }
-      let res = await this.$api.catchCrab(param)
-      if (res.data.status.statusCode == '200'){
+        workerAddress: 0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
+      };
+      let res = await this.$api.catchCrab(param);
+      if (res.data.status.statusCode == "200") {
         this.$notify({
-                  title: '成功',
-                  message: 'Catch success.',
-                  type: 'success'
-                });
+          title: "成功",
+          message: "Catch success.",
+          type: "success"
+        });
         this.$api.booth.catchcrab();
-        await this.$socket.emit('pad-stage', {stage: "catch"});
+        await this.$socket.emit("pad-stage", { stage: "0" });
       }
-      
+
       // this.$store.commit('refreshMutation', true);
     },
 
-    async packCrab(){
+    async packCrab() {
       let param = {
-        workerAddress:0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
-      }
+        workerAddress: 0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
+      };
       let res = await this.$api.packCrab(param);
-      if (res.data.status.statusCode == '200'){
+      if (res.data.status.statusCode == "200") {
         this.$notify({
-            title: '成功',
-            message: 'Pack success.',
-            type: 'success'
-          });
+          title: "成功",
+          message: "Pack success.",
+          type: "success"
+        });
         this.$api.booth.packcrab();
-        await this.$socket.emit('pad-stage', {stage: "pack"});
+        await this.$socket.emit("pad-stage", { stage:"0" });
       }
     },
 
-    async orderCrab(){
+    async orderCrab() {
       let param = {
-        workerAddress:0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
-      }
+        workerAddress: 0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
+      };
       let res = await this.$api.orderCrab(param);
-      if (res.data.status.statusCode == '200'){
+      if (res.data.status.statusCode == "200") {
         this.$notify({
-            title: '成功',
-            message: 'Order success.',
-            type: 'success'
-          });
+          title: "成功",
+          message: "Order success.",
+          type: "success"
+        });
         this.$api.booth.ordercrab();
-        await this.$socket.emit('pad-stage', {stage: "pack"});
+        await this.$socket.emit("pad-stage", { stage: "0" });
       }
     },
 
+    async transferProduct(index) {
+      let param = "";
+      if (index != this.parties.length){
+           param = this.parties[index-1].name + "/" + this.parties[index].name;
+      }
+      
+      console.log(param)
+      let res = await this.$api.transferProduct(param);
+      if (res.data.status.statusCode == "200") {
+        this.$notify({
+          title: "成功",
+          message: "Product transferred successully.",
+          type: "success"
+        });
+        //this.$api.booth.toAgency();
+        await this.$socket.emit("pad-stage", { stage: index });
+        // settlement
+        if(index == this.parties.length-1&&this.file.enableSettlement==true){
+          this.purchase()
+        }
     
-
-    async mergeCrab(){
-      let param = {
-       
-      }
-      let res= await this.$api.mergeCrab(param);
-      if (res.data.status.statusCode == '200'){
-        this.$notify({
-            title: '成功',
-            message: 'Merge success.',
-            type: 'success'
-          });
-       this.$api.booth.toAgency();
-        await this.$socket.emit('pad-stage', {stage: "merge"});
       }
     },
 
-    async custom(){
-      let param = {
-       
-      }
-      let res = await this.$api.custom(param);
-      if (res.data.status.statusCode == '200'){
+    async unpack() {
+      let param = this.parties[this.parties.length - 2].name;
+      let res = await this.$api.unpackCrab(param);
+      if (res.data.status.statusCode == "200") {
         this.$notify({
-            title: '成功',
-            message: 'Custom success.',
-            type: 'success'
-          });
-        this.$api.booth.toCustom();
-        await this.$socket.emit('pad-stage', {stage: "custom"});
+          title: "成功",
+          message: "Unpack success.",
+          type: "success"
+        });
+
+        await this.$socket.emit("pad-stage", { stage: "00" });
       }
     },
 
-    async distributionCenter(){
-      let param = {
-       
-      }
-      let res = await this.$api.distributionCenter();
-      if (res.data.status.statusCode == '200'){
-        this.$notify({
-            title: '成功',
-            message: 'Distribution success.',
-            type: 'success'
-          });
-       this.$api.booth.toDistributor();
-        await this.$socket.emit('pad-stage', {stage: "distribution"});
-      }
-    },
+    async purchase() {
+      
 
-    async retail(){
-      let param = {
-       
-      }
-      let res = await this.$api.retail();
-      if (res.data.status.statusCode == '200'){
-        this.$notify({
-            title: '成功',
-            message: 'Retail success.',
-            type: 'success'
-          });
-        this.$api.booth.toRetailer();
-        await this.$socket.emit('pad-stage', {stage: "retail"});
-      }
-    },
+      let p = {
+        transactionId: 10,
 
-    async unpack(){
-      let param = {
-        workerAddress:0xf4665b4ba89b4ab65de30be362af9bd0ba1ed311
-      }
-      let res = await this.$api.unpackCrab();
-      if (res.data.status.statusCode == '200'){
-        this.$notify({
-            title: '成功',
-            message: 'Unpack success.',
-            type: 'success'
-          });
+        to: this.parties[0].address,
+        from: this.parties[this.parties.length - 1].address,
+        amount: this.parties[0].settlement
+      };
+      let p1 = {
+        transactionId: 11,
 
-        await this.$socket.emit('pad-stage', {stage: "unpack"});
-      }
-    },
+        to: this.parties[1].address,
+        from: this.parties[this.parties.length - 1].address,
+        amount: this.parties[1].settlement
+      };
+      let p2 = {
+        transactionId: 12,
 
-    async purchase(){
-      let param = {
-       
-      }
-      let res =await this.$api.purchase();
-      if (res.data.status.statusCode == '200'){
-        this.$notify({
-            title: '成功',
-            message: 'Purchase success.',
-            type: 'success'
-          });
-        this.$api.booth.buy();
-        await this.$socket.emit('pad-stage', {stage: "purchase"});
-      }
-    },
+        to: this.parties[3].address,
+        from: this.parties[this.parties.length - 1].address,
+        amount: this.parties[3].settlement
+      };
+
+      let p3 = {
+        transactionId: 13,
+
+        to: this.parties[4].address,
+        from: this.parties[this.parties.length - 1].address,
+        amount: this.parties[4].settlement
+      };
+      console.log(p);
+      this.$api.directTransfer(p);
+      this.$api.directTransfer(p1);
+      this.$api.directTransfer(p2);
+      this.$api.directTransfer(p3);
+
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul {
@@ -220,5 +237,18 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.pad{
+  display: flex;
+  flex-direction: column;
+  margin: 50px;
+  width: 100%
+
+}
+.block{
+  margin-top:20px;
+  display: flex;
+  align-content: flex-start
 }
 </style>
