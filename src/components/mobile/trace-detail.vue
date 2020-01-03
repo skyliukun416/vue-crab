@@ -2,7 +2,7 @@
   <div id="trace-detail" v-cloak>
     <navtop></navtop>
     <div  class="kv">
-      <img src="../../assets/crabkv.jpeg">
+      <img src="@/assets/crabkv.jpeg">
     </div>
     
     <div class="location"  v-loading="loading2">
@@ -50,12 +50,12 @@
             margin: 0 auto;
             margin-top: .2rem;
             display: block;"  
-    v-show='display.downarrow' src="../../assets/down-arrow.png"> 
+    v-show='display.downarrow' src="@/assets/down-arrow.png"> 
     <img @click="display.timeline=!display.timeline,display.downarrow=true,display.uparrow=false" style="    height: 0.3rem;
             margin: 0 auto;
             margin-top: .2rem;
             display: block;"  
-    v-show='display.uparrow' src="../../assets/up-arrow.png"> 
+    v-show='display.uparrow' src="@/assets/up-arrow.png"> 
       </div>
           <div class="block" v-show="display.timeline">
             <el-timeline>
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import '../../assets/js/rem.js'
+import '@/assets/js/rem.js'
 import navtop from './nav.vue'
 import footbot from './foot.vue'
 import { setTimeout } from 'timers';

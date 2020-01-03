@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-md-3 col-sm-2 logo">
                       <a href="https://www.qme.com/zh-hans" title="首页">
-              <img src="../../assets/qme/logo_5_0.png" class="row" alt="首页">
+              <img src="@/assets/qme/logo_5_0.png" class="row" alt="首页">
             </a>
                     <button type="button" class="navbar-toggle collapsed">
             <span class="sr-only">Toggle navigation</span>

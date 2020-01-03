@@ -43,7 +43,7 @@
         </el-form>
         <div class="demo-drawer__footer">
           
-          <el-button type="warning" plain size="mini" @click="submit()">确认</el-button>
+          <el-button type="warning" plain size="mini" @click="submit()">OK</el-button>
         </div>
       </div>
     </el-drawer>

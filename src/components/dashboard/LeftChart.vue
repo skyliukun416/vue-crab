@@ -37,7 +37,7 @@
           </el-form-item>
         </el-form>
         <div class="demo-drawer__footer">
-          <el-button plain size="mini" type="warning" @click="submit()">确认</el-button>
+          <el-button plain size="mini" type="warning" @click="submit()">OK</el-button>
         </div>
       </div>
     </el-drawer>

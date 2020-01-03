@@ -50,10 +50,10 @@
 // 导入chart组件
 //var myvue = {};
 import Highcharts from "@/components/dashboard/barChart";
-import leftTable from "@/components/dashboard/leftTable";
-import leftChart from "@/components/dashboard/leftChart";
-import rightTopChart from "@/components/dashboard/rightTopChart";
-import rightBottomPie from "@/components/dashboard/rightBottomPie";
+import leftTable from "@/components/dashboard/LeftTable";
+import leftChart from "@/components/dashboard/LeftChart";
+import rightTopChart from "@/components/dashboard/RightTopChart";
+import rightBottomPie from "@/components/dashboard/RightBottomPie";
 import Highmap from "@/components/highmap";
 import mapdata from "@/assets/js/sl-all";
 import { setInterval } from "timers";

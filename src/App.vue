@@ -42,11 +42,14 @@ export default {
 
 
 body{
-    background-color: #f5f5f5;    
+   /* background-color: #f5f5f5;  */
+    background-color:#dfe0e0;
+  
     margin:0;
     padding:0;
 
 }
+
 ul{
   margin: 0;
 }

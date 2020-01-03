@@ -41,7 +41,7 @@
         </el-form>
         <div class="demo-drawer__footer">
          
-          <el-button plain size="mini" type="warning" @click="submit()">确认</el-button>
+          <el-button plain size="mini" type="warning" @click="submit()">OK</el-button>
         </div>
       </div>
     </el-drawer>
@@ -173,7 +173,7 @@ export default {
     setInterval(()=>{
       let that = this
       if(hc.series[0].points.length==4){
-        console.log("num"+hc.series[0].points.length)
+       
         hc.series[0].setData([that.getRndInteger(that.min,that.max)])
         hc.series[1].setData([that.getRndInteger(that.min,that.max)])
         hc.series[2].setData([that.getRndInteger(that.min,that.max)])
@@ -181,21 +181,21 @@ export default {
         
       }
       else if(hc.series[0].points.length == 1){
-        console.log("num"+hc.series[0].points.length)
+ 
         hc.series[0].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])
         hc.series[1].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])
         hc.series[2].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])
         hc.series[3].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])         
       }
       else if(hc.series[0].points.length == 2){
-        console.log("num"+hc.series[0].points.length)
+       
         hc.series[0].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])
         hc.series[1].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])
         hc.series[2].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])
         hc.series[3].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])         
       }
       else if(hc.series[0].points.length == 3){
-        console.log("num"+hc.series[0].points.length)
+      
         hc.series[0].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])
         hc.series[1].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])
         hc.series[2].setData([that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max),that.getRndInteger(that.min,that.max)])

@@ -47,7 +47,7 @@
         </el-form>
         <div class="demo-drawer__footer">
           
-          <el-button plain size="mini" type="warning" @click="card.visible=false">ok</el-button>
+          <el-button plain size="mini" type="warning" @click="card.visible=false">OK</el-button>
         </div>
       </div>
     </el-drawer>

@@ -21,7 +21,7 @@
                 </div>
                 <div v-for="item in location.assets.crab">
                   <div class="tit">
-                    <img style="width:30px;height:30px;" src="../assets/crab2.png">
+                    <img style="width:30px;height:30px;" src="@/assets/product_f.jpg">
                   </div>
                   <div v-for="(v,k) in item">
                     <div class="item" v-if="k!='type'&&k!='class'">{{v}}</div>
@@ -36,7 +36,7 @@
                 </div>
                 <div v-for="item in location.assets.pack">
                   <div class="tit">
-                    <img style="width:30px;height:30px;" src="../assets/pack2.png">
+                    <img style="width:30px;height:30px;" src="@/assets/pack2.png">
                   </div>
                   <div v-for="(v,k) in item">
                     <div class="item" v-if="k!='type'&&k!='class'">{{v}}</div>
@@ -51,7 +51,7 @@
                 </div>
                 <div v-for="item in location.assets.order">
                   <div class="tit">
-                    <img style="width:30px;height:30px;" src="../assets/order.png">
+                    <img style="width:30px;height:30px;" src="@/assets/order_f.jpg">
                   </div>
                   <div v-for="(v,k) in item">
                     <div class="item" v-if="k!='type'&&k!='class'">{{v}}</div>
@@ -68,7 +68,7 @@
     </div>
     <div class="fuceng_bg" v-bind:style="{display:dc.fuceng_bg}">
       <div class="animation">
-        <img :class="dc.fuceng_class" class="ccrab" src="../assets/crab-gif.gif">
+        <img :class="dc.fuceng_class" class="ccrab" src="@/assets/crab-gif.gif">
       </div>
     </div>
   </div>
@@ -119,6 +119,7 @@ export default {
       );
     },
     padaction(data) {
+      
       console.log("Data from server:" + data.action);
       if (data.action == "0") {
         this.activeNames = [1];
@@ -168,7 +169,9 @@ export default {
       } 
       this.getLocations();
       this.$refs.ev.getAllEvents();
+       
     }
+   
   },
 
   methods: {
@@ -376,7 +379,7 @@ export default {
 }
 
 .animation {
-  background-image: url("../assets/location/location-path.png");
+  background-image: url("~@/assets/location/location-path.png");
   height: 600px;
   width: 1100px;
   left: 0;
@@ -488,9 +491,18 @@ export default {
   font-size: 16px !important;
   padding-left: 10px;
   position: relative;
+  background-color: #e6e6e6;
+}
+
+.el-collapse-item__content{
+  background-color: #e6e6e6;
 }
 .el-button--small {
   font-size: 14px !important;
   font-weight: 600 !important;
+}
+
+.el-card{
+  background-color:#efebeb
 }
 </style>

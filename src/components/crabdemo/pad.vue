@@ -1,11 +1,16 @@
 <template>
   <div class="pad">
+    <navtop></navtop>
+    <!--
     <div class="block">
       <el-row>
-        <el-button type="primary" plain size="small" @click="catchCrab()">Production</el-button>
-        <!--<el-button type="primary" plain size="small" @click="packCrab()">Packing</el-button>-->
-        <el-button type="primary" plain size="small" @click="orderCrab()">Ordering</el-button>
-        <el-button type="primary" plain size="small" @click="unpack()">Unpack</el-button>
+        <el-col :span="8">
+          <el-button type="primary" plain size="small" @click="catchCrab()">Production</el-button>
+          </el-col>
+        
+        <!--<el-button type="primary" plain size="small" @click="packCrab()">Packing</el-button>
+        <el-col :span="8"><el-button type="primary" plain size="small" @click="orderCrab()">Ordering</el-button></el-col>
+        <el-col :span="8"><el-button type="primary" plain size="small" @click="unpack()">Unpack</el-button></el-col>
         
       </el-row>
     </div>
@@ -22,6 +27,38 @@
         <el-button type="warning" plain size="small" @click="buyCoins()">buy Coins</el-button>
       </el-row>
     </div>
+    -->
+
+    <div class="blockDiv">
+      <el-row>
+        <el-col :span="8">
+          <div class="cir" @click="catchCrab()">production</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="cir" @click="orderCrab()">Ordering</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="cir" @click="unpack()">Unpack</div>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top:10%">
+        <el-col :span="8" v-for="x in (1, parties.length-1)" style="margin:3px auto">
+          <div class="cir" style="background-color:#806b20" @click="transferProduct(x)">To {{parties[x].name}}</div>
+        </el-col>
+      </el-row>
+      <el-row style="margin-top:10%">
+        <el-col :span="8">
+          <div class="cir" @click="stopSwitch()">stop switch</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="cir" @click="startSwitch()">start switch</div>
+        </el-col>
+        <el-col :span="8">
+          <div class="cir" @click="buyCoins()">buy Coins</div>
+        </el-col>
+      </el-row>
+    </div>
+    <footbot></footbot>
   </div>
 </template>
 
@@ -30,14 +67,14 @@ import "@/assets/js/socket.io";
 import io from "socket.io-client";
 import API from "@/api/api.js";
 import { setInterval } from "timers";
+import navtop from '@/components/mobile/nav.vue'
+import footbot from '@/components/mobile/foot.vue'
 export default {
   name: "pad",
   data() {
     return {
       parties: [],
-      file:{}
-    
-
+      file: {}
     };
   },
 
@@ -99,7 +136,8 @@ export default {
         this.$notify({
           title: "成功",
           message: "Catch success.",
-          type: "success"
+          type: "success",
+          position: 'bottom-right'
         });
         this.$api.booth.catchcrab();
         await this.$socket.emit("pad-stage", { stage: "0" });
@@ -117,10 +155,11 @@ export default {
         this.$notify({
           title: "成功",
           message: "Pack success.",
-          type: "success"
+          type: "success",
+          position: 'bottom-right'
         });
         this.$api.booth.packcrab();
-        await this.$socket.emit("pad-stage", { stage:"0" });
+        await this.$socket.emit("pad-stage", { stage: "0" });
       }
     },
 
@@ -133,7 +172,8 @@ export default {
         this.$notify({
           title: "成功",
           message: "Order success.",
-          type: "success"
+          type: "success",
+          position: 'bottom-right'
         });
         this.$api.booth.ordercrab();
         await this.$socket.emit("pad-stage", { stage: "0" });
@@ -142,25 +182,28 @@ export default {
 
     async transferProduct(index) {
       let param = "";
-      if (index != this.parties.length){
-           param = this.parties[index-1].name + "/" + this.parties[index].name;
+      if (index != this.parties.length) {
+        param = this.parties[index - 1].name + "/" + this.parties[index].name;
       }
-      
-      console.log(param)
+
+      console.log(param);
       let res = await this.$api.transferProduct(param);
       if (res.data.status.statusCode == "200") {
         this.$notify({
           title: "成功",
           message: "Product transferred successully.",
-          type: "success"
+          type: "success",
+          position: 'bottom-right'
         });
         //this.$api.booth.toAgency();
         await this.$socket.emit("pad-stage", { stage: index });
         // settlement
-        if(index == this.parties.length-1&&this.file.enableSettlement==true){
-          this.purchase()
+        if (
+          index == this.parties.length - 1 &&
+          this.file.enableSettlement == true
+        ) {
+          this.purchase();
         }
-    
       }
     },
 
@@ -171,7 +214,8 @@ export default {
         this.$notify({
           title: "成功",
           message: "Unpack success.",
-          type: "success"
+          type: "success",
+          position: 'bottom-right'
         });
 
         await this.$socket.emit("pad-stage", { stage: "00" });
@@ -179,8 +223,6 @@ export default {
     },
 
     async purchase() {
-      
-
       let p = {
         transactionId: 10,
 
@@ -215,8 +257,11 @@ export default {
       this.$api.directTransfer(p1);
       this.$api.directTransfer(p2);
       this.$api.directTransfer(p3);
-
     }
+  },
+  components:{
+    navtop,
+    footbot
   }
 };
 </script>
@@ -239,16 +284,42 @@ a {
   color: #42b983;
 }
 
-.pad{
+.blockDiv{
+ min-height:712px;
+ margin-top: 100px
+}
+.pad {
   display: flex;
   flex-direction: column;
-  margin: 50px;
-  width: 100%
-
+  margin: 4%;
+  width: 100%;
+  background: #3c3b3a;
+ 
 }
-.block{
-  margin-top:20px;
-  display: flex;
-  align-content: flex-start
+
+.el-row {
+  width: 100%;
+}
+
+.cir {
+    background-color: #efc11c;
+    height: 60px;
+    border-radius: 50px;
+    font-size: 10px;
+    width: 60px;
+    margin: 2px;
+    margin: 0 auto;
+    text-align: center;
+    margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    cursor:pointer
 }
 </style>
